@@ -4,9 +4,9 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
 
 const STATS = [
-  { value: '3+', label: '팀 프로젝트' },
-  { value: '2', label: '수상 / 전시' },
-  { value: '2026', label: '졸업 예정' },
+  { value: '3+', label: 'Team projects shipped' },
+  { value: '02', label: 'Awards · Exhibits' },
+  { value: '26', label: 'Expected graduation' },
 ];
 
 export function About() {
@@ -17,7 +17,7 @@ export function About() {
     reducedMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 32 },
+          initial: { opacity: 0, y: 16 },
           animate: isVisible ? { opacity: 1, y: 0 } : {},
           transition: { duration: 0.6, ease: 'easeOut' as const, delay },
         };
@@ -26,66 +26,100 @@ export function About() {
     <section
       id="about"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-24 md:py-32"
+      className="section"
     >
-      <div className="max-w-6xl mx-auto px-6 lg:px-12">
-        <motion.p
-          {...anim(0)}
-          className="font-mono text-xs mb-4 tracking-widest"
-          style={{ color: 'var(--accent-primary)' }}
-        >
-          01 / ABOUT
-        </motion.p>
+      <div className="container">
+        {/* 섹션 헤더 */}
+        <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>
+          <motion.p {...anim(0)} className="section-label">
+            ── 01
+            <br />
+            About
+          </motion.p>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
-          {/* 텍스트 */}
-          <div>
-            <motion.h2
-              {...anim(0.1)}
-              className="text-3xl md:text-[36px] font-[500] tracking-[-0.01em] leading-[1.3] mb-6"
-              style={{ color: 'var(--text-primary)' }}
+          <motion.h2 {...anim(0.1)} style={{ color: '#b0b0b0' }} className="editorial-h2">
+            프론트엔드 개발자{' '}
+            <span className="editorial-h2">위재성</span>
+            입니다.
+          </motion.h2>
+        </div>
+
+        {/* 본문 — 좌측 Bio 라벨 + 우측 프로즈 */}
+        <div className="section-grid" style={{ alignItems: 'start' }}>
+          <motion.div {...anim(0.15)} className="flex flex-col gap-3">
+            <p className="section-label">Bio</p>
+            <p
+              className="font-mono text-[11px] leading-[1.6]"
+              style={{ color: 'var(--text-muted)' }}
             >
-              프론트엔드 개발자
+              {profile.tagline}
               <br />
-              <span style={{ color: 'var(--accent-primary)' }}>위재성</span>입니다.
-            </motion.h2>
+              <span style={{ color: 'var(--text-subtle)' }}>{profile.location}</span>
+            </p>
+          </motion.div>
 
-            <motion.p
-              {...anim(0.2)}
-              className="text-[15px] leading-[1.8] whitespace-pre-line"
-              style={{ color: 'var(--text-secondary)' }}
+          <motion.p
+            {...anim(0.2)}
+            className="text-[16px] md:text-[18px] leading-[1.85] whitespace-pre-line measure-prose"
+            style={{ color: 'var(--text-secondary)' }}
+          >
+            {profile.about}
+          </motion.p>
+        </div>
+
+        {/* 스탯 — 비대칭 그리드 (2fr · 1fr · 1fr) + 수직 라인 리듬 */}
+        <motion.div
+          {...anim(0.3)}
+          className="grid mt-24 md:mt-32"
+          style={{
+            gridTemplateColumns: 'minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr)',
+            borderTop: '1px solid var(--border-default)',
+          }}
+        >
+          {STATS.map((stat, idx) => (
+            <div
+              key={stat.label}
+              className="flex flex-col justify-between"
+              style={{
+                paddingTop: 'var(--space-lg)',
+                paddingBottom: 'var(--space-lg)',
+                paddingLeft: idx === 0 ? 0 : 'var(--space-lg)',
+                paddingRight: 'var(--space-lg)',
+                gap: 'var(--space-2xl)',
+                borderLeft: idx === 0 ? 'none' : '1px solid var(--border-subtle)',
+                minHeight: '180px',
+              }}
             >
-              {profile.about}
-            </motion.p>
-          </div>
-
-          {/* 스탯 카드들 */}
-          <motion.div {...anim(0.25)} className="grid grid-cols-3 gap-4">
-            {STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center justify-center py-6 rounded-xl text-center transition-all duration-300 hover:-translate-y-1"
-                style={{
-                  background: 'var(--bg-surface)',
-                  border: '0.5px solid var(--border-subtle)',
-                }}
+              <span
+                className="font-mono text-[10px] tracking-[0.3em]"
+                style={{ color: 'var(--text-subtle)' }}
               >
-                <span
-                  className="font-mono text-2xl font-[500] mb-1"
-                  style={{ color: 'var(--accent-primary)' }}
+                {String(idx + 1).padStart(2, '0')} / {String(STATS.length).padStart(2, '0')}
+              </span>
+              <div className="flex flex-col" style={{ gap: 'var(--space-sm)' }}>
+                <div
+                  className="font-[300] leading-[0.9]"
+                  style={{
+                    color: 'var(--text-primary)',
+                    fontSize:
+                      idx === 0
+                        ? 'clamp(42px, 5.6vw, 76px)'
+                        : 'clamp(30px, 3.8vw, 54px)',
+                    letterSpacing: '-0.045em',
+                  }}
                 >
                   {stat.value}
-                </span>
-                <span
-                  className="text-[11px] leading-[1.4] text-center px-1"
+                </div>
+                <div
+                  className="text-[12px] leading-[1.4]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   {stat.label}
-                </span>
+                </div>
               </div>
-            ))}
-          </motion.div>
-        </div>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

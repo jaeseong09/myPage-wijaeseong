@@ -39,14 +39,16 @@ export function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 transition-[width,height,opacity] duration-150"
+      className="pointer-events-none fixed top-0 left-0 z-[9999] -translate-x-1/2 -translate-y-1/2 transition-[width,height,border-color,background] duration-200 hidden md:block"
       style={{
-        width: hovered ? '40px' : '12px',
-        height: hovered ? '40px' : '12px',
+        width: hovered ? '36px' : '6px',
+        height: hovered ? '36px' : '6px',
         borderRadius: '50%',
-        border: `1.5px solid var(--accent-primary)`,
-        background: hovered ? 'var(--accent-soft)' : 'transparent',
-        opacity: 0.8,
+        border: hovered
+          ? '1px solid var(--point-blue)'
+          : '1px solid var(--text-primary)',
+        background: hovered ? 'var(--point-blue-soft)' : 'var(--text-primary)',
+        opacity: 0.95,
       }}
       aria-hidden="true"
     />

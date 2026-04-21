@@ -34,10 +34,8 @@ export function Navbar() {
     <header
       className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
       style={{
-        background: scrolled
-          ? 'rgba(10, 14, 26, 0.85)'
-          : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        background: scrolled ? 'rgba(10, 10, 11, 0.78)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
         borderBottom: scrolled
           ? '1px solid var(--border-subtle)'
           : '1px solid transparent',
@@ -46,20 +44,32 @@ export function Navbar() {
       <nav className="max-w-6xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
         <Link
           to="/"
-          className="font-mono text-sm tracking-widest"
-          style={{ color: 'var(--accent-primary)' }}
+          className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
+          style={{ color: 'var(--text-secondary)' }}
         >
-          wjs
+          <span
+            className="inline-block w-1.5 h-1.5 rounded-full transition-transform duration-300 group-hover:scale-125"
+            style={{ background: 'var(--point-blue)' }}
+            aria-hidden="true"
+          />
+          Wjs ·
+          <span style={{ color: 'var(--text-muted)' }}>Portfolio</span>
         </Link>
 
         {/* 데스크탑 메뉴 */}
-        <ul className="hidden md:flex items-center gap-8">
-          {NAV_ITEMS.map((item) => (
-            <li key={item.label}>
+        <ul className="hidden md:flex items-center gap-10">
+          {NAV_ITEMS.map((item, idx) => (
+            <li key={item.label} className="flex items-center gap-2">
+              <span
+                className="font-mono text-[10px]"
+                style={{ color: 'var(--text-subtle)' }}
+              >
+                {String(idx + 1).padStart(2, '0')}
+              </span>
               {isHome ? (
                 <button
                   onClick={() => handleNavClick(item.href)}
-                  className="text-sm transition-colors duration-200 cursor-pointer"
+                  className="text-[12px] tracking-wider transition-colors duration-200 cursor-pointer"
                   style={{ color: 'var(--text-muted)' }}
                   onMouseEnter={(e) =>
                     ((e.target as HTMLElement).style.color = 'var(--text-primary)')
@@ -73,7 +83,7 @@ export function Navbar() {
               ) : (
                 <Link
                   to={`/${item.href}`}
-                  className="text-sm transition-colors duration-200"
+                  className="text-[12px] tracking-wider transition-colors duration-200"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   {item.label}
@@ -104,7 +114,7 @@ export function Navbar() {
             transition={{ duration: 0.2, ease: 'easeOut' as const }}
             className="md:hidden overflow-hidden"
             style={{
-              background: 'rgba(10, 14, 26, 0.95)',
+              background: 'rgba(10, 10, 11, 0.96)',
               borderBottom: '1px solid var(--border-subtle)',
             }}
           >

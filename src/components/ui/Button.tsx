@@ -1,4 +1,4 @@
-import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from 'react';
+import type { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes, CSSProperties } from 'react';
 
 interface ButtonBaseProps {
   children: ReactNode;
@@ -15,25 +15,28 @@ type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 export function Button({ children, variant = 'primary', as, ...rest }: ButtonProps) {
   const base =
-    'inline-flex items-center gap-2 text-[13px] font-[500] rounded-lg transition-all duration-200 cursor-pointer select-none';
+    'inline-flex items-center gap-2 text-[13px] font-[500] tracking-wider transition-all duration-200 cursor-pointer select-none';
 
-  const styles =
+  const styles: CSSProperties =
     variant === 'primary'
       ? {
-          padding: '10px 18px',
-          background: 'var(--accent-strong)',
-          color: '#ffffff',
+          padding: '11px 20px',
+          background: 'var(--text-primary)',
+          color: 'var(--bg-primary)',
+          border: '1px solid var(--text-primary)',
+          borderRadius: '2px',
         }
       : {
-          padding: '10px 18px',
+          padding: '11px 20px',
           background: 'transparent',
-          border: '0.5px solid var(--border-default)',
+          border: '1px solid var(--border-default)',
           color: 'var(--text-secondary)',
+          borderRadius: '2px',
         };
 
   const hoverClass =
     variant === 'primary'
-      ? 'hover:-translate-y-px hover:brightness-110'
+      ? 'hover:opacity-90'
       : 'hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]';
 
   if (as === 'a') {
