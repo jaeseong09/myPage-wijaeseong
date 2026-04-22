@@ -119,20 +119,15 @@ export function Skills() {
 
         {/* 비대칭 3컬럼 — 프론트엔드 컬럼을 크게 */}
         <div
-          className="grid gap-x-12 md:gap-x-16 gap-y-16"
-          style={{
-            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          }}
+          className="grid gap-x-12 md:gap-x-16 gap-y-16 grid-cols-1 md:grid-cols-3"
         >
           {skillCategories.map((cat, catIdx) => {
-            const isPrimary = cat.id === 'frontend';
             return (
               <motion.div
                 key={cat.id}
                 initial={reducedMotion ? false : { opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.1 + catIdx * 0.08 }}
-                className={isPrimary ? 'md:[grid-column:span_2]' : undefined}
               >
                 <div className="flex items-baseline justify-between pb-4">
                   <div className="flex items-baseline gap-3">
@@ -146,7 +141,7 @@ export function Skills() {
                       className="font-[400] tracking-[-0.01em]"
                       style={{
                         color: 'var(--text-primary)',
-                        fontSize: isPrimary ? 'clamp(18px, 2vw, 22px)' : '14px',
+                        fontSize: '16px',
                       }}
                     >
                       {cat.label}
