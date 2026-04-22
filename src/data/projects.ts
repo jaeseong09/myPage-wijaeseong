@@ -66,7 +66,7 @@ export const projects: Project[] = [
       github: 'https://github.com/Folio-AI-project',
       video: 'https://www.youtube.com/watch?v=3BeM9U-I2O4',
     },
-    thumbnail: '/folio-thumbnail.png',
+    thumbnail: `${import.meta.env.BASE_URL}folio-thumbnail.png`,
   },
   {
     id: 'gbsw-web',
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/gbsw-wed/gbsw-wed',
     },
-    thumbnail: '/경소마고 실록 .png',
+    thumbnail: `${import.meta.env.BASE_URL}gbsw-web-thumbnail.png`,
   },
   {
     id: 'decorating-the-house',
@@ -120,7 +120,7 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/jaeseong09/CampLog',
     },
-    thumbnail: '/camplog-thumbnail.png',
+    thumbnail: `${import.meta.env.BASE_URL}camplog-thumbnail.png`,
   },
 ];
 
