@@ -20,14 +20,36 @@ export const achievements: Achievement[] = [
     project: 'Folio',
   },
   {
-    emoji: '🎯',
-    title: 'WINE 동아리 (Web Is Not Easy) Java OOP 강의 진행',
+    emoji: '🏅',
+    title: '마이다스 해커톤 창의상 수상',
     year: 2026,
   },
   {
-    emoji: '🚀',
-    title: 'CodeNest Discord 서버 웹개발 대표',
+    emoji: '🥈',
+    title: '마이다스 뉴로우 우수상 수상',
     year: 2026,
-    description: '후배 멘토링 및 협업 프로젝트 운영',
+    description: '2회 수상',
+  },
+  {
+    emoji: '✈️',
+    title: '미국 해외 연수',
+    year: 2026,
+  },
+  {
+    emoji: '🎓',
+    title: 'IBK기업은행 행복나눔재단 장학생',
+    year: 2025,
+    description: '제25-0143호',
+  },
+  {
+    emoji: '✈️',
+    title: '싱가포르 해외 연수',
+    year: 2025,
+  },
+  {
+    emoji: '🇯🇵',
+    title: '일본 국제교류',
+    year: 2024,
+    description: '중학교 국제교류 프로그램',
   },
 ];

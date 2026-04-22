@@ -100,16 +100,32 @@ export function Projects() {
 
                     {/* 제목 + 서브타이틀 */}
                     <div className="flex flex-col gap-2">
-                      <h3
-                        className="font-[300] tracking-[-0.025em] leading-[1] transition-transform duration-300"
-                        style={{
-                          fontSize: 'clamp(26px, 4.5vw, 64px)',
-                          color: 'inherit',
-                          transform: isHover ? 'translateX(8px)' : 'translateX(0)',
-                        }}
-                      >
-                        {project.title}
-                      </h3>
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <h3
+                          className="font-[300] tracking-[-0.025em] leading-[1] transition-transform duration-300"
+                          style={{
+                            fontSize: 'clamp(26px, 4.5vw, 64px)',
+                            color: 'inherit',
+                            transform: isHover ? 'translateX(8px)' : 'translateX(0)',
+                          }}
+                        >
+                          {project.title}
+                        </h3>
+                        {project.status === 'wip' && (
+                          <span
+                            className="font-mono text-[9px] tracking-[0.2em] px-2 py-[3px] rounded-sm self-center shrink-0"
+                            style={{
+                              color: '#f59e0b',
+                              border: '1px solid rgba(245,158,11,0.35)',
+                              background: 'rgba(245,158,11,0.07)',
+                              transition: 'transform 0.3s',
+                              transform: isHover ? 'translateX(8px)' : 'translateX(0)',
+                            }}
+                          >
+                            IN PROGRESS
+                          </span>
+                        )}
+                      </div>
                       <p
                         className="text-[13px] font-mono tracking-wider"
                         style={{ color: 'var(--text-subtle)' }}
@@ -167,32 +183,16 @@ export function Projects() {
                         </p>
                       </div>
 
-                      {/* 썸네일 — 공유 요소 전환 제거 (정적 썸네일) */}
-                      <div
-                        className="overflow-hidden"
-                        style={{ background: 'var(--bg-elevated)' }}
-                      >
-                        <div className="w-full aspect-[21/9] flex items-center justify-center">
-                          <div className="text-center">
-                            <div
-                              className="font-[300] leading-none mb-4"
-                              style={{
-                                color: 'var(--text-primary)',
-                                fontSize: 'clamp(36px, 7vw, 104px)',
-                                letterSpacing: '-0.045em',
-                              }}
-                            >
-                              {project.title}
-                            </div>
-                            <div
-                              className="font-mono text-[10px] tracking-[0.3em]"
-                              style={{ color: 'var(--text-subtle)' }}
-                            >
-                              {project.year} · {project.tech.slice(0, 3).join(' · ')}
-                            </div>
-                          </div>
+                      {/* 썸네일 */}
+                      {project.thumbnail && (
+                        <div className="overflow-hidden">
+                          <img
+                            src={project.thumbnail}
+                            alt={`${project.title} 썸네일`}
+                            className="w-full h-auto block"
+                          />
                         </div>
-                      </div>
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>

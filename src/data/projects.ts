@@ -15,6 +15,13 @@ export interface FolioLesson {
   body: string;
 }
 
+export interface FolioProblem {
+  title: string;
+  issue: string;
+  solution: string;
+  result: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -34,6 +41,7 @@ export interface Project {
 export interface FolioDetail extends Project {
   overview: string;
   roles: FolioRole[];
+  problems: FolioProblem[];
   lessons: FolioLesson[];
 }
 
@@ -58,7 +66,61 @@ export const projects: Project[] = [
       github: 'https://github.com/Folio-AI-project',
       video: 'https://www.youtube.com/watch?v=3BeM9U-I2O4',
     },
-    thumbnail: '/images/folio-mockup.png',
+    thumbnail: '/folio-thumbnail.png',
+  },
+  {
+    id: 'gbsw-web',
+    title: '경소마고실록',
+    subtitle: '학교 커뮤니티 플랫폼',
+    description:
+      '경북소프트웨어마이스터고 학생들을 위한 게시판·커뮤니티 서비스로, 게시글 CRUD·좋아요·검색·페이지네이션·파일 첨부·프로필 관리를 갖춘 풀스택 웹입니다.',
+    year: 2025,
+    role: 'Frontend (전담)',
+    team: '팀 프로젝트 (FE 단독 · BE 팀)',
+    duration: '2025.03 ~ 2025.06',
+    status: 'shipped',
+    tech: ['React 19', 'Vite', 'React Bootstrap', 'Axios', 'React Router 7', 'Node.js/Express', 'MySQL'],
+    achievements: [],
+    links: {
+      github: 'https://github.com/gbsw-wed/gbsw-wed',
+    },
+    thumbnail: '/경소마고 실록 .png',
+  },
+  {
+    id: 'decorating-the-house',
+    title: 'Homeshop',
+    subtitle: '가구·생활용품 쇼핑 인터페이스',
+    description:
+      '가구·생활용품 4종을 검색·장바구니 담기·드래그앤드롭으로 관리하고, Canvas API로 영수증을 즉석 생성하는 쇼핑 인터페이스입니다.',
+    year: 2025,
+    role: 'Frontend (개인)',
+    team: '개인 프로젝트',
+    duration: '2025.09',
+    status: 'shipped',
+    tech: ['HTML5', 'CSS3', 'JavaScript', 'jQuery UI', 'Bootstrap 5', 'Canvas API'],
+    achievements: [],
+    links: {
+      github: 'https://github.com/jaeseong09/Decorating-the-house',
+    },
+    thumbnail: '',
+  },
+  {
+    id: 'camplog',
+    title: 'CampLog',
+    subtitle: '캠핑 감성 집중력 관리 플랫폼',
+    description:
+      '공부 시간이 쌓일수록 나만의 캠프사이트가 성장하는 집중력 관리 서비스입니다. 실시간 모닥불 피드백으로 집중도를 시각화하고, 사운드스케이프·소셜 편대 캠핑 기능을 제공합니다.',
+    year: 2026,
+    role: '풀스택 (개인)',
+    team: '개인 프로젝트',
+    duration: '2026.04 ~ 진행 중',
+    status: 'wip',
+    tech: ['React', 'TypeScript', 'Vite', 'Spring Boot', 'JPA', 'MySQL', 'Web Audio API', 'AWS EC2/S3'],
+    achievements: [],
+    links: {
+      github: 'https://github.com/jaeseong09/CampLog',
+    },
+    thumbnail: '/camplog-thumbnail.png',
   },
 ];
 
@@ -102,6 +164,26 @@ export const folioDetail: FolioDetail = {
         '`styled-components`로 `Wrapper`·`Card`·`SectionHeader` 등 재사용 가능한 컴포넌트를 정의하고, 프라이머리 컬러(`#46BEFF`)와 간격·라운드·그림자 값을 상수화해 디자인 토큰 체계로 통일했습니다.',
         '`recharts` 기반 스킬 레이더·막대 차트와 `conic-gradient`를 활용한 원형 점수 그래프를 직접 설계해, 분석 결과를 한눈에 읽을 수 있는 대시보드형 화면을 구현했습니다.',
       ],
+    },
+  ],
+  problems: [
+    {
+      title: '두 종류 백엔드 동시 연동 시 API 경로 관리',
+      issue:
+        '사용자 인증은 Node/Express, 포트폴리오 분석은 FastAPI가 담당하는 구조에서 프론트가 두 서버 주소를 직접 호출하면 환경 전환마다 코드 수정이 필요했습니다. 개별 컴포넌트에 fetch URL을 하드코딩하면 서버 주소 변경 시 수정 누락이 발생하고, 개발 환경에서는 두 서버 모두 CORS 이슈가 동시에 발생했습니다.',
+      solution:
+        '`api.ts`에 `APP_API_BASE`·`AI_API_BASE`를 환경 변수(`VITE_API_BASE`, `VITE_AI_BASE`)로 분리하고 `appApiUrl()`·`aiApiUrl()` 헬퍼 함수로 호출 지점을 구분했습니다. Vite `proxy`로 `/api/auth`·`/api/profile`은 Node 서버, `/api/analyze`·`/api/layout`·`/api/ocr`은 FastAPI 서버로 경로 기반 자동 라우팅을 구성해 CORS 없이 두 서버를 동시에 개발할 수 있는 구조를 확보했습니다.',
+      result:
+        '환경 전환 시 `.env` 파일만 수정하면 되도록 전환 비용을 최소화하고 개발 환경의 CORS 이슈를 완전히 제거했습니다. 호출 지점이 아닌 진입점에서 분기하는 것이 유지보수성을 크게 높인다는 점을 체득했습니다.',
+    },
+    {
+      title: 'AI 분석 결과의 새로고침 시 데이터 유실',
+      issue:
+        'AI 분석은 PDF 파싱과 OpenAI 호출을 거쳐 수 초가 소요되는 무거운 요청으로, 결과 페이지에서 새로고침하거나 뒤로 가기 시 데이터가 사라져 재분석 외에는 복구 방법이 없었습니다. `react-router`의 `navigate state`만으로는 새로고침 시 메모리 상태가 초기화되어 빈 화면이 노출됐습니다.',
+      solution:
+        '분석 응답을 `localStorage`(`ANALYSIS_STORAGE_KEY`)에 JSON 직렬화해 영속 저장하고, 결과 페이지는 `navigate state`가 없을 경우 `localStorage`를 폴백으로 조회하는 이중 소스 구조를 설계했습니다. 서버 에러의 `detail`·`message` 필드를 파싱해 HTTP 상태 코드가 아닌 구체적인 실패 원인을 사용자에게 전달하도록 에러 UX도 개선했습니다.',
+      result:
+        '새로고침·뒤로가기·재방문 시에도 분석 결과가 유지되어 불필요한 재분석 요청을 제거하고 AI 호출 비용을 절감했습니다. 실시간 상태와 영속 상태를 하나의 계층에 섞지 않고 분리하는 것이 안정적 UX의 핵심임을 배웠습니다.',
     },
   ],
   lessons: [

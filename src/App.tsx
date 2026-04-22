@@ -6,6 +6,9 @@ import { ScrollProgress } from './components/layout/ScrollProgress';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Home } from './pages/Home';
 import { Folio } from './pages/projects/Folio';
+import { DecoratingTheHouse } from './pages/projects/DecoratingTheHouse';
+import { GbswWeb } from './pages/projects/GbswWeb';
+import { CampLog } from './pages/projects/CampLog';
 
 export default function App() {
   return (
@@ -17,6 +20,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects/folio" element={<Folio />} />
+          <Route path="/projects/decorating-the-house" element={<DecoratingTheHouse />} />
+          <Route path="/projects/gbsw-web" element={<GbswWeb />} />
+          <Route path="/projects/camplog" element={<CampLog />} />
         </Routes>
       </AnimatePresence>
       <Footer />
