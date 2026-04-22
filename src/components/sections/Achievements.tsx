@@ -73,9 +73,8 @@ export function Achievements() {
               initial={reducedMotion ? false : { opacity: 0 }}
               animate={isVisible ? { opacity: 1 } : {}}
               transition={{ duration: 0.45, delay: 0.06 + idx * 0.05 }}
-              className="group grid items-baseline gap-x-6 md:gap-x-10 transition-colors duration-300"
+              className="group transition-colors duration-300"
               style={{
-                gridTemplateColumns: '48px minmax(0, 3fr) minmax(0, 1fr) 80px',
                 paddingTop: 'var(--space-lg)',
                 paddingBottom: 'var(--space-lg)',
                 borderBottom: '1px solid var(--border-subtle)',
@@ -87,34 +86,33 @@ export function Achievements() {
                 (e.currentTarget as HTMLElement).style.color = '';
               }}
             >
-              <span
-                className="font-mono text-[11px] tracking-[0.3em] self-start"
-                style={{ color: 'var(--text-subtle)' }}
-              >
-                {String(idx + 1).padStart(2, '0')}
-              </span>
-
-              <div className="flex flex-col" style={{ gap: 'var(--space-2xs)' }}>
-                <p
-                  className="text-[15px] md:text-[18px] font-[400] leading-[1.35] tracking-[-0.01em]"
-                  style={{ color: 'inherit' }}
-                >
-                  {item.title}
-                </p>
+              {/* 모바일 레이아웃 */}
+              <div className="md:hidden flex flex-col gap-1">
+                <div className="flex items-start justify-between gap-3">
+                  <p
+                    className="text-[15px] font-[400] leading-[1.35] tracking-[-0.01em] flex-1"
+                    style={{ color: 'inherit' }}
+                  >
+                    {item.title}
+                  </p>
+                  <span
+                    className="font-mono text-[11px] shrink-0"
+                    style={{ color: 'var(--text-muted)', paddingTop: '2px' }}
+                  >
+                    {item.year}
+                  </span>
+                </div>
                 {item.description && (
                   <p
-                    className="text-[12px] leading-[1.55] measure-prose"
+                    className="text-[12px] leading-[1.55]"
                     style={{ color: 'var(--text-muted)' }}
                   >
                     {item.description}
                   </p>
                 )}
-              </div>
-
-              <div className="flex items-start" style={{ paddingTop: '2px' }}>
-                {item.project ? (
+                {item.project && (
                   <span
-                    className="font-mono text-[10px] tracking-[0.2em] uppercase px-2 py-0.5"
+                    className="font-mono text-[10px] tracking-[0.2em] uppercase px-2 py-0.5 self-start mt-1"
                     style={{
                       color: 'var(--text-secondary)',
                       border: '1px solid var(--border-default)',
@@ -122,22 +120,66 @@ export function Achievements() {
                   >
                     {item.project}
                   </span>
-                ) : (
-                  <span
-                    className="font-mono text-[11px] tracking-widest"
-                    style={{ color: 'var(--text-subtle)' }}
-                  >
-                    ——
-                  </span>
                 )}
               </div>
 
-              <span
-                className="font-mono text-[12px] text-right self-start"
-                style={{ color: 'var(--text-muted)', paddingTop: '2px' }}
+              {/* 데스크탑 테이블 레이아웃 */}
+              <div
+                className="hidden md:grid items-baseline gap-x-10"
+                style={{ gridTemplateColumns: '48px minmax(0, 3fr) minmax(0, 1fr) 80px' }}
               >
-                {item.year}
-              </span>
+                <span
+                  className="font-mono text-[11px] tracking-[0.3em] self-start"
+                  style={{ color: 'var(--text-subtle)' }}
+                >
+                  {String(idx + 1).padStart(2, '0')}
+                </span>
+
+                <div className="flex flex-col" style={{ gap: 'var(--space-2xs)' }}>
+                  <p
+                    className="text-[18px] font-[400] leading-[1.35] tracking-[-0.01em]"
+                    style={{ color: 'inherit' }}
+                  >
+                    {item.title}
+                  </p>
+                  {item.description && (
+                    <p
+                      className="text-[12px] leading-[1.55] measure-prose"
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      {item.description}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-start" style={{ paddingTop: '2px' }}>
+                  {item.project ? (
+                    <span
+                      className="font-mono text-[10px] tracking-[0.2em] uppercase px-2 py-0.5"
+                      style={{
+                        color: 'var(--text-secondary)',
+                        border: '1px solid var(--border-default)',
+                      }}
+                    >
+                      {item.project}
+                    </span>
+                  ) : (
+                    <span
+                      className="font-mono text-[11px] tracking-widest"
+                      style={{ color: 'var(--text-subtle)' }}
+                    >
+                      ——
+                    </span>
+                  )}
+                </div>
+
+                <span
+                  className="font-mono text-[12px] text-right self-start"
+                  style={{ color: 'var(--text-muted)', paddingTop: '2px' }}
+                >
+                  {item.year}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>

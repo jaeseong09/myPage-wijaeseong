@@ -121,8 +121,7 @@ export function Skills() {
         <div
           className="grid gap-x-12 md:gap-x-16 gap-y-16"
           style={{
-            gridTemplateColumns:
-              'repeat(auto-fit, minmax(240px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
           }}
         >
           {skillCategories.map((cat, catIdx) => {
@@ -133,9 +132,7 @@ export function Skills() {
                 initial={reducedMotion ? false : { opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.1 + catIdx * 0.08 }}
-                style={{
-                  gridColumn: isPrimary ? 'span 2' : 'span 1',
-                }}
+                className={isPrimary ? 'md:[grid-column:span_2]' : undefined}
               >
                 <div className="flex items-baseline justify-between pb-4">
                   <div className="flex items-baseline gap-3">

@@ -82,9 +82,9 @@ export function Projects() {
                   }}
                 >
                   <div
-                    className="grid items-baseline gap-x-6 md:gap-x-10"
+                    className="grid items-baseline gap-x-4 md:gap-x-10"
                     style={{
-                      gridTemplateColumns: '56px minmax(0, 1fr) auto',
+                      gridTemplateColumns: '40px minmax(0, 1fr) auto',
                     }}
                   >
                     {/* 번호 */}
@@ -136,11 +136,11 @@ export function Projects() {
 
                     {/* 연도 + 화살표 */}
                     <div
-                      className="flex items-center gap-4 self-start"
+                      className="flex items-center gap-2 md:gap-4 self-start"
                       style={{ paddingTop: '0.6em' }}
                     >
                       <span
-                        className="font-mono text-[11px] tracking-[0.3em]"
+                        className="hidden sm:inline font-mono text-[11px] tracking-[0.3em]"
                         style={{ color: 'var(--text-subtle)' }}
                       >
                         {project.year}

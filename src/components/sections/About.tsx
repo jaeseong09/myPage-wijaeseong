@@ -70,24 +70,21 @@ export function About() {
         {/* 스탯 — 비대칭 그리드 (2fr · 1fr · 1fr) + 수직 라인 리듬 */}
         <motion.div
           {...anim(0.3)}
-          className="grid mt-24 md:mt-32"
-          style={{
-            gridTemplateColumns: 'minmax(0, 1.8fr) minmax(0, 1fr) minmax(0, 1fr)',
-            borderTop: '1px solid var(--border-default)',
-          }}
+          className="grid grid-cols-1 sm:grid-cols-3 mt-24 md:mt-32"
+          style={{ borderTop: '1px solid var(--border-default)' }}
         >
           {STATS.map((stat, idx) => (
             <div
               key={stat.label}
-              className="flex flex-col justify-between"
+              className={`flex flex-col justify-between ${idx !== 0 ? 'border-t sm:border-t-0 sm:border-l' : ''}`}
               style={{
                 paddingTop: 'var(--space-lg)',
                 paddingBottom: 'var(--space-lg)',
                 paddingLeft: idx === 0 ? 0 : 'var(--space-lg)',
                 paddingRight: 'var(--space-lg)',
                 gap: 'var(--space-2xl)',
-                borderLeft: idx === 0 ? 'none' : '1px solid var(--border-subtle)',
-                minHeight: '180px',
+                borderColor: 'var(--border-subtle)',
+                minHeight: '140px',
               }}
             >
               <span

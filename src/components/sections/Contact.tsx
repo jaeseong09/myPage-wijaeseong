@@ -151,7 +151,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className="group grid items-center transition-colors duration-300 gap-x-6"
                 style={{
-                  gridTemplateColumns: '120px minmax(0, 1fr) auto',
+                  gridTemplateColumns: 'minmax(60px, 100px) minmax(0, 1fr) auto',
                   paddingTop: 'var(--space-lg)',
                   paddingBottom: 'var(--space-lg)',
                   borderTop:

@@ -12,7 +12,7 @@ import { CampLog } from './pages/projects/CampLog';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
