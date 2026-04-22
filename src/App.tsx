@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
@@ -9,10 +9,11 @@ import { Folio } from './pages/projects/Folio';
 import { DecoratingTheHouse } from './pages/projects/DecoratingTheHouse';
 import { GbswWeb } from './pages/projects/GbswWeb';
 import { CampLog } from './pages/projects/CampLog';
+import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    <HashRouter>
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
@@ -23,9 +24,10 @@ export default function App() {
           <Route path="/projects/decorating-the-house" element={<DecoratingTheHouse />} />
           <Route path="/projects/gbsw-web" element={<GbswWeb />} />
           <Route path="/projects/camplog" element={<CampLog />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
       <Footer />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
