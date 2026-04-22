@@ -8,7 +8,7 @@ export function ScrollProgress() {
       className="fixed top-0 left-0 h-[2px] z-50 transition-none"
       style={{
         width: `${progress * 100}%`,
-        background: 'linear-gradient(90deg, var(--accent-strong), var(--accent-primary))',
+        background: 'var(--point-blue)',
       }}
       role="progressbar"
       aria-valuenow={Math.round(progress * 100)}

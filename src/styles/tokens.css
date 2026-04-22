@@ -1,34 +1,71 @@
 :root {
-  /* Background */
-  --bg-primary: #0A0E1A;
-  --bg-surface: rgba(255, 255, 255, 0.02);
-  --bg-elevated: rgba(255, 255, 255, 0.04);
+  /* Background — 모노톤 근사-블랙으로 통일 */
+  --bg-primary: #0A0A0B;
+  --bg-surface: transparent;
+  --bg-elevated: #111113;
 
-  /* Border */
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  /* Border — 얇은 헤어라인만 */
+  --border-subtle: rgba(255, 255, 255, 0.06);
   --border-default: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(55, 138, 221, 0.4);
+  --border-strong: rgba(255, 255, 255, 0.28);
 
-  /* Accent */
-  --accent-primary: #46BEFF;
-  --accent-strong: #378ADD;
-  --accent-light: #85B7EB;
-  --accent-soft: rgba(70, 190, 255, 0.1);
+  /* Accent — 단일 웜 오프화이트 (채도 최소) */
+  --accent-primary: #F2EDE4;
+  --accent-strong: #FFFFFF;
+  --accent-light: #B8B3A8;
+  --accent-soft: rgba(242, 237, 228, 0.06);
 
-  /* Text */
-  --text-primary: #E6EDF5;
-  --text-secondary: rgba(230, 237, 245, 0.7);
-  --text-muted: rgba(230, 237, 245, 0.5);
-  --text-subtle: rgba(230, 237, 245, 0.3);
+  /* Point — 단일 편집용 일렉트릭 블루.
+     "현재 활성/상호작용 중"인 상태에서만 등장. 정적 장식 금지.
+     oklch(0.58 0.22 268) 근사 — 사이안이 아니라 인디고-블루. */
+  --point-blue: #3D5AFE;
+  --point-blue-soft: rgba(61, 90, 254, 0.16);
+  --point-blue-line: rgba(61, 90, 254, 0.48);
 
-  /* Status */
-  --status-success: #5DCAA5;
-  --status-warning: #EF9F27;
+  /* Text — 따뜻한 오프화이트 계조 */
+  --text-primary: #EDEAE3;
+  --text-secondary: rgba(237, 234, 227, 0.70);
+  --text-muted: rgba(237, 234, 227, 0.45);
+  --text-subtle: rgba(237, 234, 227, 0.28);
+
+  /* Status — 채도 낮춘 무광 계열 */
+  --status-success: #A8C3A4;
+  --status-warning: #D4B896;
 
   /* Typography */
-  --font-sans: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Escoredream', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', 'Consolas', monospace;
+  --font-display: 'YeogiOttaeJalnanGothic', 'Pretendard Variable', sans-serif;
+
+  /* Radius — 각을 살린다 */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  /* Spacing — 4pt 시맨틱 스케일 (관련 요소 타이트 / 섹션 관대) */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  --space-4xl: 96px;
+  --space-5xl: 128px;
+  --space-6xl: 160px;
+
+  /* Section rhythm — 섹션 단위 상하 패딩 */
+  --section-pad-y: clamp(96px, 12vw, 160px);
+  --section-pad-y-tight: clamp(64px, 8vw, 112px);
+
+  /* Container */
+  --container-max: 1180px;
+  --container-pad-x: clamp(24px, 4vw, 48px);
+
+  /* Reading measure */
+  --measure-prose: 68ch;
 
   /* Easing */
   --ease-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
 }

@@ -5,4 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: '/',
+  server: {
+    allowedHosts: [
+      '.ngrok-free.dev',
+      '.ngrok-free.app',
+      '.ngrok.io',
+    ],
+  },
 })

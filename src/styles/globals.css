@@ -4,6 +4,22 @@
 
 @import "tailwindcss";
 
+/* 강조 디스플레이 폰트 — 섹션 타이틀/키 헤드라인 전용 */
+@font-face {
+  font-family: 'YeogiOttaeJalnanGothic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_231029@1.1/JalnanGothic.woff') format('woff');
+  font-weight: normal;
+  font-display: swap;
+}
+
+/* 본문 기본 폰트 — 소프트한 라이트 웨이트 */
+@font-face {
+  font-family: 'Escoredream';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+  font-weight: 300;
+  font-display: swap;
+}
+
 @theme {
   --color-bg-primary: var(--bg-primary);
   --color-bg-surface: var(--bg-surface);
@@ -21,6 +37,7 @@
   --color-text-subtle: var(--text-subtle);
   --color-status-success: var(--status-success);
   --color-status-warning: var(--status-warning);
+  --color-point-blue: var(--point-blue);
 
   --font-family-sans: var(--font-sans);
   --font-family-mono: var(--font-mono);
@@ -38,27 +55,34 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-sans);
+  font-weight: 300;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01', 'cv01';
+}
+
+::selection {
+  background: var(--point-blue);
+  color: #ffffff;
 }
 
 /* 키보드 포커스 outline */
 :focus-visible {
-  outline: 2px solid var(--accent-primary);
-  outline-offset: 2px;
+  outline: 1px solid var(--point-blue);
+  outline-offset: 3px;
 }
 
-/* 스크롤바 */
+/* 스크롤바 — 얇은 헤어라인 */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 2px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--border-default);
-  border-radius: 2px;
+  background: var(--point-blue-line);
+  border-radius: 0;
 }
 
 /* prefers-reduced-motion */
@@ -68,4 +92,81 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Layout utilities — 섹션 리듬 일관성을 위해
+   ────────────────────────────────────────────────────────────── */
+
+.section {
+  padding-top: var(--section-pad-y);
+  padding-bottom: var(--section-pad-y);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.section--tight {
+  padding-top: var(--section-pad-y-tight);
+  padding-bottom: var(--section-pad-y-tight);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad-x);
+}
+
+.measure-prose {
+  max-width: var(--measure-prose);
+}
+
+/* 공용 에디토리얼 섹션 헤더 그리드 */
+.section-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+  .section-grid {
+    grid-template-columns: 140px minmax(0, 1fr);
+    gap: var(--space-3xl);
+  }
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  line-height: 1.6;
+  color: var(--text-subtle);
+  text-transform: uppercase;
+}
+
+/* 큰 에디토리얼 헤드라인 — 섹션 간 타이포 일관성
+   강조 디스플레이 폰트(JalnanGothic) 사용 — 단일 웨이트만 존재하므로 font-weight normal 고정 */
+.editorial-h2 {
+  font-family: var(--font-display);
+  font-weight: normal;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: var(--point-blue);
+  font-size: clamp(24px, 3.4vw, 42px);
+}
+
+.editorial-h1 {
+  font-family: var(--font-display);
+  font-weight: normal;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--point-blue);
+}
+
+/* 헤어라인 행 — Projects / Achievements / Contact 리스트 공용 */
+.hairline-list > * + * {
+  border-top: 1px solid var(--border-subtle);
+}
+.hairline-list {
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
 }

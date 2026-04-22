@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Check, GitFork, BookOpen, PenLine } from 'lucide-react';
+import { Check, Copy, ArrowUpRight } from 'lucide-react';
 import { useIntersection } from '../../hooks/useIntersection';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
@@ -9,19 +9,16 @@ const SOCIALS = [
   {
     label: 'GitHub',
     href: profile.social.github,
-    icon: GitFork,
     display: 'github.com/jaeseong09',
   },
   {
     label: 'Velog',
     href: profile.social.velog,
-    icon: PenLine,
     display: 'velog.io/@wijaeseong',
   },
   {
     label: 'Naver Blog',
     href: profile.social.naverBlog,
-    icon: BookOpen,
     display: 'blog.naver.com/cadoim',
   },
 ];
@@ -45,7 +42,7 @@ export function Contact() {
     reducedMotion
       ? {}
       : {
-          initial: { opacity: 0, y: 24 },
+          initial: { opacity: 0, y: 16 },
           animate: isVisible ? { opacity: 1, y: 0 } : {},
           transition: { duration: 0.55, ease: 'easeOut' as const, delay },
         };
@@ -54,120 +51,141 @@ export function Contact() {
     <section
       id="contact"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-24 md:py-32"
-      style={{ borderTop: '1px solid var(--border-subtle)' }}
+      className="section"
     >
-      <div className="max-w-6xl mx-auto px-6 lg:px-12">
-        <motion.p
-          {...anim(0)}
-          className="font-mono text-xs mb-4 tracking-widest"
-          style={{ color: 'var(--accent-primary)' }}
-        >
-          05 / CONTACT
-        </motion.p>
+      <div className="container">
+        {/* 섹션 헤더 */}
+        <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>
+          <motion.p {...anim(0)} className="section-label">
+            ── 05
+            <br />
+            Contact
+          </motion.p>
 
-        <motion.h2
-          {...anim(0.05)}
-          className="text-3xl md:text-[40px] font-[500] tracking-[-0.02em] mb-3"
-          style={{ color: 'var(--text-primary)' }}
-        >
-          Let's work together
-        </motion.h2>
+          <motion.h2
+            {...anim(0.05)}
+            className="editorial-h1"
+            style={{
+              fontSize: 'clamp(36px, 6vw, 88px)',
+              letterSpacing: '-0.035em',
+            }}
+          >
+            Let's work
+            <br />
+            together.
+          </motion.h2>
+        </div>
 
-        <motion.p
-          {...anim(0.1)}
-          className="text-[15px] mb-12"
-          style={{ color: 'var(--text-muted)' }}
+        {/* 이메일 블록 — 모바일에서 줄바꿈 안정적으로 */}
+        <motion.div
+          {...anim(0.15)}
+          className="section-grid"
+          style={{ marginBottom: 'var(--space-4xl)' }}
         >
-          협업·채용 관련 문의는 이메일로 연락 부탁드립니다.
-        </motion.p>
-
-        <div className="grid md:grid-cols-2 gap-8 items-start">
-          {/* 이메일 카드 */}
-          <motion.div {...anim(0.15)}>
+          <p className="section-label">Email ──</p>
+          <div className="flex flex-col gap-5">
             <button
               onClick={handleCopy}
-              className="w-full flex items-center gap-4 px-6 py-5 rounded-xl text-left transition-all duration-200 group hover:-translate-y-0.5"
-              style={{
-                background: 'var(--bg-surface)',
-                border: '0.5px solid var(--border-subtle)',
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-strong)';
-                (e.currentTarget as HTMLElement).style.background = 'var(--accent-soft)';
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)';
-                (e.currentTarget as HTMLElement).style.background = 'var(--bg-surface)';
-              }}
+              className="group inline-flex items-start text-left transition-colors duration-300"
+              style={{ color: 'var(--text-primary)' }}
               aria-label="이메일 주소 복사"
             >
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-                style={{ background: 'var(--accent-soft)', color: 'var(--accent-primary)' }}
-              >
-                {copied ? <Check size={18} /> : <Mail size={18} />}
-              </div>
-              <div>
-                <p className="text-[11px] mb-0.5" style={{ color: 'var(--text-subtle)' }}>
-                  Email
-                </p>
-                <p className="text-sm font-[500]" style={{ color: 'var(--text-primary)' }}>
-                  {profile.email}
-                </p>
-              </div>
               <span
-                className="ml-auto font-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-                style={{ color: 'var(--text-muted)' }}
+                className="font-[300] tracking-[-0.025em] leading-[1.05]"
+                style={{
+                  fontSize: 'clamp(22px, 4vw, 48px)',
+                  borderBottom: '1px solid var(--border-default)',
+                  paddingBottom: '6px',
+                  wordBreak: 'keep-all',
+                  overflowWrap: 'anywhere',
+                }}
               >
-                {copied ? 'copied!' : 'click to copy'}
+                {profile.email}
               </span>
             </button>
-          </motion.div>
+            <div className="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] uppercase">
+              <button
+                onClick={handleCopy}
+                className="inline-flex items-center gap-2 pb-0.5 transition-colors duration-200"
+                style={{
+                  color: copied ? 'var(--point-blue)' : 'var(--text-muted)',
+                  borderBottom: copied
+                    ? '1px solid var(--point-blue)'
+                    : '1px solid var(--border-default)',
+                }}
+              >
+                {copied ? (
+                  <>
+                    <Check size={12} strokeWidth={1.5} />
+                    Copied to clipboard
+                  </>
+                ) : (
+                  <>
+                    <Copy size={12} strokeWidth={1.5} />
+                    Copy address
+                  </>
+                )}
+              </button>
+              <span style={{ color: 'var(--text-subtle)' }}>·</span>
+              <span style={{ color: 'var(--text-subtle)' }}>
+                응답까지 영업일 기준 1–2일
+              </span>
+            </div>
+          </div>
+        </motion.div>
 
-          {/* 소셜 링크들 */}
-          <motion.div {...anim(0.2)} className="flex flex-col gap-3">
-            {SOCIALS.map(({ label, href, icon: Icon, display }) => (
+        {/* 소셜 — 라인 리스트 */}
+        <motion.div {...anim(0.25)} className="section-grid">
+          <p className="section-label">Elsewhere ──</p>
+          <div
+            style={{
+              borderTop: '1px solid var(--border-default)',
+              borderBottom: '1px solid var(--border-default)',
+            }}
+          >
+            {SOCIALS.map(({ label, href, display }, idx) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-4 px-6 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 group"
+                className="group grid items-center transition-colors duration-300 gap-x-6"
                 style={{
-                  background: 'var(--bg-surface)',
-                  border: '0.5px solid var(--border-subtle)',
+                  gridTemplateColumns: '120px minmax(0, 1fr) auto',
+                  paddingTop: 'var(--space-lg)',
+                  paddingBottom: 'var(--space-lg)',
+                  borderTop:
+                    idx === 0 ? 'none' : '1px solid var(--border-subtle)',
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-strong)';
-                  (e.currentTarget as HTMLElement).style.background = 'var(--accent-soft)';
+                  (e.currentTarget as HTMLElement).style.color = 'var(--text-primary)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'var(--border-subtle)';
-                  (e.currentTarget as HTMLElement).style.background = 'var(--bg-surface)';
+                  (e.currentTarget as HTMLElement).style.color = '';
                 }}
               >
-                <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: 'rgba(255,255,255,0.04)', color: 'var(--text-muted)' }}
+                <span
+                  className="font-mono text-[10px] tracking-[0.3em] uppercase"
+                  style={{ color: 'var(--text-subtle)' }}
                 >
-                  <Icon size={15} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[11px] mb-0.5" style={{ color: 'var(--text-subtle)' }}>
-                    {label}
-                  </p>
-                  <p
-                    className="text-sm font-mono truncate"
-                    style={{ color: 'var(--text-secondary)' }}
-                  >
-                    {display}
-                  </p>
-                </div>
+                  {label}
+                </span>
+                <span
+                  className="text-[15px] md:text-[17px] font-mono truncate"
+                  style={{ color: 'inherit' }}
+                >
+                  {display}
+                </span>
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={1.25}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  style={{ color: 'var(--text-muted)' }}
+                />
               </a>
             ))}
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
