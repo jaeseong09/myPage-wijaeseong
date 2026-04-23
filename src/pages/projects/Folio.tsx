@@ -151,33 +151,19 @@ export function Folio() {
           <span>{folioDetail.year}</span>
         </div>
 
-        {/* 썸네일 — 공유 요소 전환 제거 (정적 썸네일) */}
+        {/* 썸네일 */}
         <div
-          className="w-full aspect-[21/9] flex items-center justify-center overflow-hidden"
+          className="w-full overflow-hidden"
           style={{
-            background: 'var(--bg-elevated)',
             border: '1px solid var(--border-subtle)',
             marginBottom: 'var(--space-2xl)',
           }}
         >
-          <div className="text-center">
-            <div
-              className="font-[300] leading-none mb-3"
-              style={{
-                color: 'var(--text-primary)',
-                fontSize: 'clamp(54px, 11vw, 160px)',
-                letterSpacing: '-0.05em',
-              }}
-            >
-              Folio
-            </div>
-            <div
-              className="font-mono text-[10px] tracking-[0.3em]"
-              style={{ color: 'var(--text-subtle)' }}
-            >
-              AI Expo Korea · 2026
-            </div>
-          </div>
+          <img
+            src={folioDetail.thumbnail}
+            alt="Folio 프로젝트 썸네일"
+            className="w-full object-cover"
+          />
         </div>
 
         {/* 제목 + 메타 그리드 */}
