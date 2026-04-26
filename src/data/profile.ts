@@ -19,7 +19,7 @@ export interface Profile {
 export const profile: Profile = {
   name: '위재성',
   tagline: '프론트엔드 개발자',
-  location: '경북, 설천',
+  location: '경북,포항',
   school: '경북소프트웨어 마이스터 고등학교 (GBSW)',
   email: 'jaeseongwi48@gmail.com',
   phone: '010-4629-0813',

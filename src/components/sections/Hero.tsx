@@ -149,7 +149,7 @@ export function Hero() {
 
                 <div className="flex flex-col gap-1 font-mono text-[11px] tracking-wider md:text-right">
                   <span style={{ color: 'var(--text-subtle)' }}>Based in</span>
-                  <span style={{ color: 'var(--text-secondary)' }}>Gumi · Seoul</span>
+                  <span style={{ color: 'var(--text-secondary)' }}>Gyeongbuk · Pohang</span>
                 </div>
               </motion.div>
 
