@@ -64,12 +64,18 @@ function SkillItem({
             transition={{ duration: 0.3, ease: 'easeOut' as const }}
             className="overflow-hidden"
           >
-            <p
-              className="pl-10 pr-2 pb-5 text-[13px] leading-[1.75] measure-prose"
-              style={{ color: 'var(--text-muted)' }}
-            >
-              {skill.detail}
-            </p>
+            <ul className="pl-10 pr-2 pb-5 flex flex-col gap-1.5">
+              {skill.detail.map((item, i) => (
+                <li
+                  key={i}
+                  className="text-[13px] leading-[1.75] flex gap-2"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  <span className="shrink-0 mt-[0.45em]" style={{ color: 'var(--text-subtle)' }}>—</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </motion.div>
         )}
       </AnimatePresence>
