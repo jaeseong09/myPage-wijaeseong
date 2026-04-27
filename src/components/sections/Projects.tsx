@@ -59,7 +59,10 @@ export function Projects() {
         </div>
 
         {/* 프로젝트 — 인덱스 리스트 */}
-        <div style={{ borderTop: '1px solid var(--border-default)' }}>
+        <div
+          style={{ borderTop: '1px solid var(--border-default)' }}
+          onMouseLeave={() => setHoveredId(null)}
+        >
           {visible.map((project, idx) => {
             const isHover = hoveredId === project.id;
             return (
@@ -70,7 +73,6 @@ export function Projects() {
                 transition={{ duration: 0.55, delay: 0.1 + idx * 0.08 }}
                 style={{ borderBottom: '1px solid var(--border-default)' }}
                 onMouseEnter={() => setHoveredId(project.id)}
-                onMouseLeave={() => setHoveredId(null)}
               >
                 <button
                   onClick={() => navigate(`/projects/${project.id}`)}
