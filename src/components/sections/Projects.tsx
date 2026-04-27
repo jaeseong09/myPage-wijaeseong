@@ -160,7 +160,7 @@ export function Projects() {
                   </div>
                 </button>
 
-                {/* Hover 시 펼쳐지는 설명 + 썸네일 */}
+                {/* Hover 시 펼쳐지는 설명 */}
                 <AnimatePresence initial={false}>
                   {isHover && !reducedMotion && (
                     <motion.div
@@ -171,10 +171,8 @@ export function Projects() {
                       className="overflow-hidden"
                     >
                       <div
-                        className="grid gap-x-10 gap-y-5 pb-10"
-                        style={{
-                          gridTemplateColumns: '56px minmax(0, 1fr)',
-                        }}
+                        className="grid gap-x-10 pb-10"
+                        style={{ gridTemplateColumns: '56px minmax(0, 1fr)' }}
                       >
                         <div />
                         <p
@@ -184,17 +182,6 @@ export function Projects() {
                           {project.description}
                         </p>
                       </div>
-
-                      {/* 썸네일 */}
-                      {project.thumbnail && (
-                        <div className="overflow-hidden">
-                          <img
-                            src={project.thumbnail}
-                            alt={`${project.title} 썸네일`}
-                            className="w-full h-auto block"
-                          />
-                        </div>
-                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
