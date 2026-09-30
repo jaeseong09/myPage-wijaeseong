@@ -110,7 +110,12 @@ export const projects: Project[] = [
       "github": "https://github.com/2026-gbsw-W/Phishing-Defense",
       "blog": "https://blog.naver.com/cadoim/224348927029"
     },
-    "thumbnail": "",
+    "thumbnail": `${import.meta.env.BASE_URL}phishing-defense-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}phishing-defense-small.webp`,
+    "thumbnailWidth": 616,
+    "thumbnailHeight": 684,
+    "thumbnailAlt": "Phishing Defense 프로젝트 로고",
+    "thumbnailCaption": "Phishing Defense 프로젝트 로고",
     "featured": true,
     "stateLabel": "해커톤 결과물"
   },
@@ -136,10 +141,10 @@ export const projects: Project[] = [
       "github": "https://github.com/core-AIforAll/demo",
       "blog": "https://blog.naver.com/cadoim/224387934310"
     },
-    "thumbnail": `${import.meta.env.BASE_URL}core-detail.webp`,
-    "thumbnailSmall": `${import.meta.env.BASE_URL}core-small.webp`,
-    "thumbnailWidth": 1086,
-    "thumbnailHeight": 1448,
+    "thumbnail": `${import.meta.env.BASE_URL}core-wide-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}core-wide-small.webp`,
+    "thumbnailWidth": 1600,
+    "thumbnailHeight": 900,
     "thumbnailAlt": "CORE 소개 포스터 — 모두를 위한 AI, AI 기반 GPU 인프라 플랫폼",
     "thumbnailCaption": "CORE 프로젝트 소개 포스터",
     "featured": true,
