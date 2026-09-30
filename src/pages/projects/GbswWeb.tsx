@@ -186,7 +186,7 @@ export function GbswWeb() {
 
   const scrollTo = (id: string) => {
     setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   };
 
   return (
@@ -196,7 +196,7 @@ export function GbswWeb() {
     >
       <div className="container">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate({ pathname: '/', hash: '#projects' })}
           className="inline-flex items-center gap-2 text-[12px] font-mono tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
           style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-2xl)' }}
         >
@@ -238,9 +238,8 @@ export function GbswWeb() {
 
         {/* 제목 + 메타 */}
         <div
-          className="grid gap-x-16 gap-y-12"
+          className="grid grid-cols-1 md:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] gap-x-16 gap-y-12"
           style={{
-            gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr)',
             marginBottom: 'var(--space-2xl)',
           }}
         >

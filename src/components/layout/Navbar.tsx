@@ -2,12 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 const NAV_ITEMS = [
   { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Activities', href: '#experiences' },
   { label: 'Achievements', href: '#achievements' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -15,6 +17,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
+  const reducedMotion = usePrefersReducedMotion();
   const isHome = location.pathname === '/' || location.pathname === '';
 
   useEffect(() => {
@@ -27,7 +30,7 @@ export function Navbar() {
     setMenuOpen(false);
     if (!isHome) return;
     const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: 'smooth' });
+    el?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
   };
 
   return (
@@ -44,6 +47,7 @@ export function Navbar() {
       <nav className="max-w-6xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
         <Link
           to="/"
+          onClick={() => setMenuOpen(false)}
           className="group inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
           style={{ color: 'var(--text-secondary)' }}
         >
@@ -57,7 +61,7 @@ export function Navbar() {
         </Link>
 
         {/* 데스크탑 메뉴 */}
-        <ul className="hidden md:flex items-center gap-10">
+        <ul className="hidden lg:flex items-center gap-5">
           {NAV_ITEMS.map((item, idx) => (
             <li key={item.label} className="flex items-center gap-2">
               <span
@@ -82,7 +86,7 @@ export function Navbar() {
                 </button>
               ) : (
                 <Link
-                  to={`/${item.href}`}
+                  to={{ pathname: '/', hash: item.href }}
                   className="text-[12px] tracking-wider transition-colors duration-200"
                   style={{ color: 'var(--text-muted)' }}
                 >
@@ -95,10 +99,12 @@ export function Navbar() {
 
         {/* 모바일 햄버거 */}
         <button
-          className="md:hidden p-2 rounded-lg"
+          className="lg:hidden p-3 rounded-lg"
           style={{ color: 'var(--text-muted)' }}
           onClick={() => setMenuOpen((v) => !v)}
           aria-label={menuOpen ? '메뉴 닫기' : '메뉴 열기'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-navigation"
         >
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
@@ -112,7 +118,8 @@ export function Navbar() {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2, ease: 'easeOut' as const }}
-            className="md:hidden overflow-hidden"
+            id="mobile-navigation"
+            className="lg:hidden overflow-hidden"
             style={{
               background: 'rgba(10, 10, 11, 0.96)',
               borderBottom: '1px solid var(--border-subtle)',
@@ -121,13 +128,20 @@ export function Navbar() {
             <ul className="flex flex-col px-6 py-4 gap-4">
               {NAV_ITEMS.map((item) => (
                 <li key={item.label}>
-                  <button
-                    onClick={() => handleNavClick(item.href)}
-                    className="text-sm w-full text-left py-1"
+                  <Link
+                    to={{ pathname: '/', hash: item.href }}
+                    onClick={(event) => {
+                      setMenuOpen(false);
+                      if (isHome) {
+                        event.preventDefault();
+                        handleNavClick(item.href);
+                      }
+                    }}
+                    className="block text-sm w-full text-left py-3"
                     style={{ color: 'var(--text-secondary)' }}
                   >
                     {item.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

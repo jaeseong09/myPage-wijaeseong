@@ -6,6 +6,8 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
 
 const SOCIALS = [
+  { label: 'LinkedIn', href: profile.social.linkedin, display: 'linkedin.com/in/jaeseongwi' },
+  { label: 'Notion', href: profile.social.notion, display: '프로젝트 기록' },
   {
     label: 'GitHub',
     href: profile.social.github,
@@ -57,7 +59,7 @@ export function Contact() {
         {/* 섹션 헤더 */}
         <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>
           <motion.p {...anim(0)} className="section-label">
-            ── 05
+            ── 06
             <br />
             Contact
           </motion.p>

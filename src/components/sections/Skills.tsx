@@ -107,7 +107,7 @@ export function Skills() {
             transition={{ duration: 0.5 }}
             className="section-label"
           >
-            ── 02
+            ── 05
             <br />
             Skills
           </motion.p>

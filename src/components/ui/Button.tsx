@@ -40,7 +40,7 @@ export function Button({ children, variant = 'primary', as, ...rest }: ButtonPro
       : 'hover:border-[var(--border-strong)] hover:text-[var(--text-primary)]';
 
   if (as === 'a') {
-    const { as: _as, variant: _v, ...anchorRest } = rest as ButtonAsAnchor;
+    const anchorRest = rest as AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
       <a className={`${base} ${hoverClass}`} style={styles} {...anchorRest}>
         {children}
@@ -48,7 +48,7 @@ export function Button({ children, variant = 'primary', as, ...rest }: ButtonPro
     );
   }
 
-  const { as: _as, variant: _v, ...buttonRest } = rest as ButtonAsButton;
+  const buttonRest = rest as ButtonHTMLAttributes<HTMLButtonElement>;
   return (
     <button className={`${base} ${hoverClass}`} style={styles} {...buttonRest}>
       {children}

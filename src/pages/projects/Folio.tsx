@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, Plus } from 'lucide-react';
 import { folioDetail } from '../../data/projects';
 import { Badge } from '../../components/ui/Badge';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 
 const SECTIONS = [
   { id: 'overview', label: '개요', index: '01' },
   { id: 'roles', label: '담당 역할', index: '02' },
-  { id: 'lessons', label: '배운 점', index: '03' },
+  { id: 'problems', label: '문제 해결', index: '03' },
+  { id: 'exhibition', label: '전시와 피드백', index: '04' },
+  { id: 'lessons', label: '배운 점', index: '05' },
 ];
 
 function RoleAccordion() {
@@ -110,11 +113,15 @@ function RoleAccordion() {
 
 export function Folio() {
   const navigate = useNavigate();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [activeSection, setActiveSection] = useState('overview');
 
   const scrollTo = (id: string) => {
     setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+      block: 'start',
+    });
   };
 
   return (
@@ -125,7 +132,7 @@ export function Folio() {
       {/* ── 헤더 — 카탈로그 행 + 썸네일 + 제목 ─────────── */}
       <div className="container">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate({ pathname: '/', hash: '#projects' })}
           className="inline-flex items-center gap-2 text-[12px] font-mono tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
           style={{
             color: 'var(--text-muted)',
@@ -138,9 +145,8 @@ export function Folio() {
 
         {/* 카탈로그 행 */}
         <div
-          className="grid items-end gap-6 pb-4 font-mono text-[10px] tracking-[0.3em]"
+          className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 pb-4 font-mono text-[10px] tracking-[0.3em]"
           style={{
-            gridTemplateColumns: '1fr auto auto',
             color: 'var(--text-subtle)',
             borderBottom: '1px solid var(--border-default)',
             marginBottom: 'var(--space-xl)',
@@ -172,10 +178,7 @@ export function Folio() {
           style={{ gridTemplateColumns: 'minmax(0, 1fr)' }}
         >
           <div
-            className="grid gap-x-16 gap-y-12"
-            style={{
-              gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr)',
-            }}
+            className="grid grid-cols-1 md:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] gap-x-16 gap-y-12"
           >
             {/* 좌측 — 제목 + 서브 */}
             <div>
@@ -253,6 +256,25 @@ export function Folio() {
                     Video <ArrowUpRight size={12} strokeWidth={1.25} />
                   </a>
                 )}
+                {[
+                  { label: 'Blog', url: folioDetail.links.blog },
+                  { label: 'Notion', url: folioDetail.links.notion },
+                ].filter((link) => link.url).map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-[11px] font-mono tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
+                    style={{
+                      color: 'var(--text-muted)',
+                      borderBottom: '1px solid var(--border-default)',
+                      paddingBottom: '2px',
+                    }}
+                  >
+                    {link.label} <ArrowUpRight size={12} strokeWidth={1.25} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -366,8 +388,90 @@ export function Folio() {
               <RoleAccordion />
             </section>
 
+            <section id="problems">
+              <p className="section-label mb-5">03 / Problem solving</p>
+              <h2
+                className="editorial-h2 mb-10"
+                style={{ fontSize: 'clamp(22px, 2.8vw, 34px)' }}
+              >
+                문제를 해결한 과정
+              </h2>
+              <div className="flex flex-col gap-10">
+                {folioDetail.problems.map((problem) => (
+                  <article
+                    key={problem.title}
+                    className="pt-6"
+                    style={{ borderTop: '1px solid var(--border-default)' }}
+                  >
+                    <h3 className="text-[18px] md:text-[20px] leading-[1.5] mb-6">
+                      {problem.title}
+                    </h3>
+                    <dl className="flex flex-col gap-6 measure-prose">
+                      {[
+                        { label: '문제', text: problem.issue },
+                        { label: '해결', text: problem.solution },
+                        { label: '결과', text: problem.result },
+                      ].map(({ label, text }) => (
+                        <div key={label}>
+                          <dt className="section-label mb-2">{label}</dt>
+                          <dd
+                            className="text-[14px] md:text-[15px] leading-[1.85]"
+                            style={{ color: 'var(--text-secondary)' }}
+                          >
+                            {text}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            <section id="exhibition">
+              <p className="section-label mb-5">04 / Exhibition · 2026.05</p>
+              <h2
+                className="editorial-h2 mb-8"
+                style={{ fontSize: 'clamp(22px, 2.8vw, 34px)' }}
+              >
+                AI EXPO에서 만난 사용자의 질문
+              </h2>
+              <div className="flex flex-col gap-6 measure-prose">
+                <p
+                  className="text-[16px] md:text-[17px] leading-[1.9]"
+                  style={{ color: 'var(--text-secondary)' }}
+                >
+                  레벨업 프로그램에서 4위를 기록한 Folio를 AI EXPO KOREA 2026에
+                  출품했습니다. 부스에서 서비스를 설명하며 분석 기준과 실제 이용
+                  가능성에 대한 질문을 받았습니다. 개발자가 아닌 관람객에게는
+                  서비스를 설명하기 어려웠고, 이력서와 자기소개서까지 분석 대상을
+                  넓혀 달라는 의견도 들었습니다.
+                </p>
+                <p
+                  className="text-[14px] md:text-[15px] leading-[1.85]"
+                  style={{ color: 'var(--text-muted)' }}
+                >
+                  이 경험을 통해 학교 안에서 구현한 기능을 실제 사용자가 이해하고
+                  사용할 수 있게 만드는 과정이 더 필요하다는 것을 배웠습니다.
+                  분석 기준을 설명하는 방식, 읽기 편한 결과 화면, 이용 대상의 확대를
+                  후속 개선 과제로 정리했습니다.
+                </p>
+                {folioDetail.links.blog && (
+                  <a
+                    href={folioDetail.links.blog}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 self-start text-[13px] underline underline-offset-4"
+                    style={{ color: 'var(--text-secondary)' }}
+                  >
+                    AI EXPO 출품 회고 읽기 <ArrowUpRight size={14} />
+                  </a>
+                )}
+              </div>
+            </section>
+
             <section id="lessons">
-              <p className="section-label mb-5">03 / Learnings</p>
+              <p className="section-label mb-5">05 / Learnings</p>
               <h2
                 className="editorial-h2 mb-10"
                 style={{ fontSize: 'clamp(22px, 2.8vw, 34px)' }}

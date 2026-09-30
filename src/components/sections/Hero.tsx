@@ -7,29 +7,21 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 const TYPING_SPEED = 32;
 
 export function Hero() {
-  const [displayed, setDisplayed] = useState('');
-  const [typingDone, setTypingDone] = useState(false);
+  const [typedLength, setTypedLength] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
 
   const fullText = profile.heroTitle;
+  const displayed = reducedMotion ? fullText : fullText.slice(0, typedLength);
+  const typingDone = reducedMotion || typedLength >= fullText.length;
 
   useEffect(() => {
-    if (reducedMotion) {
-      setDisplayed(fullText);
-      setTypingDone(true);
-      return;
-    }
-    let i = 0;
+    if (typingDone) return;
+
     const timer = setInterval(() => {
-      i++;
-      setDisplayed(fullText.slice(0, i));
-      if (i >= fullText.length) {
-        clearInterval(timer);
-        setTypingDone(true);
-      }
+      setTypedLength((length) => Math.min(length + 1, fullText.length));
     }, TYPING_SPEED);
     return () => clearInterval(timer);
-  }, [fullText, reducedMotion]);
+  }, [fullText.length, typingDone]);
 
   return (
     <section
@@ -50,7 +42,7 @@ export function Hero() {
           style={{ color: 'var(--text-subtle)' }}
         >
           <span>Portfolio · Index 2026</span>
-          <span className="hidden md:inline">Gyeongbuk SW Meister High · 3rd Year</span>
+          <span className="hidden md:inline">Gyeongbuk SW Meister High · Class of 2028</span>
         </div>
         <div
           className="mt-4 h-px w-full"
@@ -165,7 +157,7 @@ export function Hero() {
                   href="#projects"
                   onClick={(e) => {
                     e.preventDefault();
-                    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
+                    document.querySelector('#projects')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
                   }}
                   className="group inline-flex items-center gap-2 text-sm font-[500] pb-1 transition-colors duration-200"
                   style={{

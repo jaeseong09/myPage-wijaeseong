@@ -164,7 +164,7 @@ export function DecoratingTheHouse() {
 
   const scrollTo = (id: string) => {
     setActiveSection(id);
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
   };
 
   return (
@@ -174,7 +174,7 @@ export function DecoratingTheHouse() {
     >
       <div className="container">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate({ pathname: '/', hash: '#projects' })}
           className="inline-flex items-center gap-2 text-[12px] font-mono tracking-[0.28em] uppercase transition-colors duration-200 hover:text-[var(--text-primary)]"
           style={{ color: 'var(--text-muted)', marginBottom: 'var(--space-2xl)' }}
         >
@@ -199,9 +199,8 @@ export function DecoratingTheHouse() {
 
         {/* 제목 + 메타 */}
         <div
-          className="grid gap-x-16 gap-y-12"
+          className="grid grid-cols-1 md:grid-cols-[minmax(0,2.2fr)_minmax(0,1fr)] gap-x-16 gap-y-12"
           style={{
-            gridTemplateColumns: 'minmax(0, 2.2fr) minmax(0, 1fr)',
             marginBottom: 'var(--space-2xl)',
           }}
         >
@@ -334,9 +333,9 @@ export function DecoratingTheHouse() {
                 style={{ color: 'var(--text-secondary)' }}
               >
                 가구·생활용품 4종을 대상으로 검색, 장바구니 담기, 드래그앤드롭, 결제 모달,
-                Canvas 영수증 생성까지 이어지는 완결된 쇼핑 플로우를 순수 HTML·CSS·JavaScript로
-                구현한 프로젝트입니다. 외부 프레임워크 없이 브라우저 API를 직접 다루며 DOM 조작,
-                이벤트 처리, Canvas 그래픽스의 기초를 체득했습니다.
+                Canvas 영수증 생성까지 이어지는 쇼핑 흐름을 HTML·CSS·JavaScript와
+                jQuery·jQuery UI·Bootstrap으로 구현한 학습 프로젝트입니다. Canvas API로
+                영수증을 직접 그리며 DOM 조작, 이벤트 처리, 그래픽 출력의 기초를 익혔습니다.
               </p>
 
               {/* 핵심 수치 */}

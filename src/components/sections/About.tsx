@@ -3,11 +3,7 @@ import { useIntersection } from '../../hooks/useIntersection';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
 
-const STATS = [
-  { value: '3+', label: 'Team projects shipped' },
-  { value: '02', label: 'Awards · Exhibits' },
-  { value: '26', label: 'Expected graduation' },
-];
+const STATS = profile.highlights;
 
 export function About() {
   const { ref, isVisible } = useIntersection();

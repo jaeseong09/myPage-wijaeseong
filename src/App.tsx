@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { Navbar } from './components/layout/Navbar';
+import { RouteScroll } from './components/layout/RouteScroll';
 import { Footer } from './components/layout/Footer';
 import { ScrollProgress } from './components/layout/ScrollProgress';
 import { CustomCursor } from './components/layout/CustomCursor';
@@ -9,11 +10,13 @@ import { Folio } from './pages/projects/Folio';
 import { DecoratingTheHouse } from './pages/projects/DecoratingTheHouse';
 import { GbswWeb } from './pages/projects/GbswWeb';
 import { CampLog } from './pages/projects/CampLog';
+import { CaseStudy } from './pages/projects/CaseStudy';
 import { NotFound } from './pages/NotFound';
 
 export default function App() {
   return (
     <HashRouter>
+      <RouteScroll />
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
@@ -24,6 +27,7 @@ export default function App() {
           <Route path="/projects/decorating-the-house" element={<DecoratingTheHouse />} />
           <Route path="/projects/gbsw-web" element={<GbswWeb />} />
           <Route path="/projects/camplog" element={<CampLog />} />
+          <Route path="/projects/:id" element={<CaseStudy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </AnimatePresence>
