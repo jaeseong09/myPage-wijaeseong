@@ -1,0 +1,46 @@
+.side-wireframes {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.side-chain {
+  position: absolute;
+  left: 50%;
+  width: max(1480px, 145vw);
+  opacity: 0.6;
+  transform: translate(-50%, -50%) rotate(var(--chain-angle)) scale(var(--chain-scale));
+  transform-origin: center;
+}
+
+.side-chain--distant {
+  opacity: 0.32;
+}
+
+.side-chain:first-child {
+  opacity: 0.34;
+}
+
+.side-chain img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 767px) {
+  .side-chain {
+    width: 1250px;
+    opacity: 0.3;
+  }
+
+  .side-chain--distant {
+    display: none;
+  }
+
+  .side-chain:first-child {
+    opacity: 0.18;
+  }
+}

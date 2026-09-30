@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useIntersection } from '../../hooks/useIntersection';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
+import { SectionRule } from '../ui/SectionMotion';
 
 const STATS = profile.highlights;
 
@@ -22,21 +23,21 @@ export function About() {
     <section
       id="about"
       ref={ref as React.RefObject<HTMLElement>}
-      className="section"
+      className="section section--tight section--animated"
     >
+      <SectionRule />
       <div className="container">
         {/* 섹션 헤더 */}
-        <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>
+        <div className="section-grid mb-10 md:mb-12">
           <motion.p {...anim(0)} className="section-label">
             ── 01
             <br />
             About
           </motion.p>
 
-          <motion.h2 {...anim(0.1)} style={{ color: '#b0b0b0' }} className="editorial-h2">
-            프론트엔드 개발자{' '}
-            <span className="editorial-h2">위재성</span>
-            입니다.
+          <motion.h2 {...anim(0.1)} className="editorial-h2">
+            화면을 만들고,<br />
+            사용자의 반응을 듣습니다.
           </motion.h2>
         </div>
 
@@ -66,7 +67,7 @@ export function About() {
         {/* 스탯 — 비대칭 그리드 (2fr · 1fr · 1fr) + 수직 라인 리듬 */}
         <motion.div
           {...anim(0.3)}
-          className="grid grid-cols-1 sm:grid-cols-3 mt-24 md:mt-32"
+          className="grid grid-cols-1 sm:grid-cols-3 mt-12 md:mt-16"
           style={{ borderTop: '1px solid var(--border-default)' }}
         >
           {STATS.map((stat, idx) => (

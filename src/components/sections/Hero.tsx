@@ -1,27 +1,20 @@
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowDown, ArrowUpRight } from 'lucide-react';
 import { profile } from '../../data/profile';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
+import '../../styles/hero-motion.css';
 
-const TYPING_SPEED = 32;
+function RollingLabel({ children }: { children: string }) {
+  return (
+    <span className="hero-link-label">
+      <span className="hero-link-label-front">{children}</span>
+      <span className="hero-link-label-back" aria-hidden="true">{children}</span>
+    </span>
+  );
+}
 
 export function Hero() {
-  const [typedLength, setTypedLength] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
-
-  const fullText = profile.heroTitle;
-  const displayed = reducedMotion ? fullText : fullText.slice(0, typedLength);
-  const typingDone = reducedMotion || typedLength >= fullText.length;
-
-  useEffect(() => {
-    if (typingDone) return;
-
-    const timer = setInterval(() => {
-      setTypedLength((length) => Math.min(length + 1, fullText.length));
-    }, TYPING_SPEED);
-    return () => clearInterval(timer);
-  }, [fullText.length, typingDone]);
 
   return (
     <section
@@ -51,16 +44,15 @@ export function Hero() {
       </div>
 
       {/* ── 메인 소개 — 상단 구분선과 같은 왼쪽 기준선 ─────── */}
-      <div className="container flex items-center py-12 md:py-16">
-        <div className="w-full flex flex-col" style={{ gap: 'var(--space-xl)' }}>
-          {/* 리드 — 작은 인트로 문장 */}
+      <div className="container hero-main">
+        <div className="hero-copy">
           <motion.p
             initial={reducedMotion ? false : { opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="whitespace-pre-line text-[13px] md:text-[14px] leading-[1.6] measure-prose"
+            transition={{ duration: reducedMotion ? 0 : 0.4 }}
+            className="hero-lede whitespace-pre-line"
             style={{
-              color: 'var(--text-muted)',
+              color: 'var(--text-secondary)',
               letterSpacing: '-0.005em',
             }}
           >
@@ -69,31 +61,40 @@ export function Hero() {
 
           {/* 키 타이포그래피 */}
           <h1
-            className="editorial-h1 whitespace-pre-line"
+            className="editorial-h1"
             style={{
               fontSize: 'clamp(34px, 7.6vw, 104px)',
               minHeight: '2.16em',
             }}
           >
-            {displayed}
-            {!typingDone && (
-              <span
-                className="inline-block w-[3px] h-[0.82em] ml-1 align-[-0.06em] animate-pulse"
-                style={{ background: 'var(--point-blue)' }}
-                aria-hidden="true"
-              />
-            )}
+            <span className="sr-only">{profile.heroTitle}</span>
+            {profile.heroTitle.split('\n').map((line, index) => (
+              <span className="hero-title-line" aria-hidden="true" key={line}>
+                <motion.span
+                  className="hero-title-line-content"
+                  initial={reducedMotion ? false : { y: '105%' }}
+                  animate={{ y: '0%' }}
+                  transition={{
+                    duration: reducedMotion ? 0 : 0.6,
+                    delay: reducedMotion ? 0 : 0.1 + index * 0.09,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
           </h1>
 
           {/* 서브 카피 + 사이드 메타 — 타이트 그룹 */}
           <motion.div
             initial={reducedMotion ? false : { opacity: 0 }}
-            animate={typingDone ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reducedMotion ? 0 : 0.45, delay: reducedMotion ? 0 : 0.28 }}
             className="grid md:grid-cols-[minmax(0,1fr)_auto] gap-x-16 gap-y-6 items-end"
           >
             <p
-              className="text-[13px] md:text-[14px] leading-[1.7] whitespace-pre-line measure-prose"
+              className="hero-description whitespace-pre-line measure-prose"
               style={{ color: 'var(--text-secondary)' }}
             >
               {profile.heroSubtitle}
@@ -108,8 +109,8 @@ export function Hero() {
           {/* CTA — 텍스트 링크 */}
           <motion.div
             initial={reducedMotion ? false : { opacity: 0 }}
-            animate={typingDone ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.5, delay: 0.35 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: reducedMotion ? 0 : 0.4, delay: reducedMotion ? 0 : 0.4 }}
             className="flex flex-wrap items-center gap-x-10 gap-y-4"
             style={{ marginTop: 'var(--space-sm)' }}
           >
@@ -119,39 +120,38 @@ export function Hero() {
                 e.preventDefault();
                 document.querySelector('#projects')?.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth' });
               }}
-              className="group inline-flex items-center gap-2 text-sm font-[500] pb-1 transition-colors duration-200"
+              className="hero-link inline-flex items-center gap-2 text-base font-[500] pb-1"
               style={{
                 color: 'var(--text-primary)',
                 borderBottom: '1px solid var(--text-primary)',
               }}
             >
-              프로젝트 보기
-              <ArrowUpRight
-                size={14}
-                className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              />
+              <RollingLabel>프로젝트 보기</RollingLabel>
+              <ArrowUpRight size={14} className="hero-link-icon" aria-hidden="true" />
             </a>
             <a
               href={profile.social.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm pb-1 transition-colors duration-200 hover:text-[var(--text-primary)]"
+              className="hero-link inline-flex items-center gap-1 text-base pb-1"
               style={{
                 color: 'var(--text-muted)',
                 borderBottom: '1px solid var(--border-subtle)',
               }}
             >
-              GitHub ↗
+              <RollingLabel>GitHub</RollingLabel>
+              <ArrowUpRight size={14} className="hero-link-icon" aria-hidden="true" />
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="text-sm pb-1 transition-colors duration-200 hover:text-[var(--text-primary)]"
+              className="hero-link inline-flex items-center gap-1 text-base pb-1"
               style={{
                 color: 'var(--text-muted)',
                 borderBottom: '1px solid var(--border-subtle)',
               }}
             >
-              Email ↗
+              <RollingLabel>Email</RollingLabel>
+              <ArrowUpRight size={14} className="hero-link-icon" aria-hidden="true" />
             </a>
           </motion.div>
         </div>
@@ -161,8 +161,8 @@ export function Hero() {
          스크롤 힌트 + 좌측 캡션을 한 줄로 고정 */}
       <motion.div
         initial={reducedMotion ? false : { opacity: 0 }}
-        animate={typingDone ? { opacity: 1 } : { opacity: 0 }}
-        transition={{ duration: 0.6, delay: 0.8 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reducedMotion ? 0 : 0.4, delay: reducedMotion ? 0 : 0.5 }}
         className="container"
         style={{ paddingBottom: 'var(--space-xl)' }}
       >
@@ -183,12 +183,7 @@ export function Hero() {
           </div>
           <div className="flex items-center gap-3" aria-hidden="true">
             <span>SCROLL</span>
-            <motion.div
-              animate={reducedMotion ? {} : { y: [0, 4, 0] }}
-              transition={{ duration: 1.8, repeat: 2, ease: 'easeInOut' }}
-            >
-              <ArrowDown size={12} style={{ color: 'var(--text-subtle)' }} />
-            </motion.div>
+            <ArrowDown size={12} style={{ color: 'var(--text-subtle)' }} />
           </div>
         </div>
       </motion.div>

@@ -4,6 +4,7 @@ import { Check, Copy, ArrowUpRight } from 'lucide-react';
 import { useIntersection } from '../../hooks/useIntersection';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { profile } from '../../data/profile';
+import { SectionRule } from '../ui/SectionMotion';
 
 const SOCIALS = [
   { label: 'LinkedIn', href: profile.social.linkedin, display: 'linkedin.com/in/jaeseongwi' },
@@ -53,8 +54,9 @@ export function Contact() {
     <section
       id="contact"
       ref={ref as React.RefObject<HTMLElement>}
-      className="section"
+      className="section section--animated"
     >
+      <SectionRule />
       <div className="container">
         {/* 섹션 헤더 */}
         <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>

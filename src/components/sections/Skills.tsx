@@ -5,6 +5,7 @@ import { useIntersection } from '../../hooks/useIntersection';
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import { skillCategories } from '../../data/skills';
 import type { Skill } from '../../data/skills';
+import { SectionRule } from '../ui/SectionMotion';
 
 function SkillItem({
   skill,
@@ -96,8 +97,9 @@ export function Skills() {
     <section
       id="skills"
       ref={ref as React.RefObject<HTMLElement>}
-      className="section"
+      className="section section--animated"
     >
+      <SectionRule />
       <div className="container">
         {/* 섹션 헤더 */}
         <div className="section-grid" style={{ marginBottom: 'var(--space-4xl)' }}>
