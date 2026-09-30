@@ -2,9 +2,9 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
-export default defineConfig(({ command, isPreview }) => ({
+export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: command === 'build' || isPreview ? '/myPage-wijaeseong/' : '/',
+  base: '/',
   server: {
     allowedHosts: [
       '.ngrok-free.dev',
@@ -12,4 +12,4 @@ export default defineConfig(({ command, isPreview }) => ({
       '.ngrok.io',
     ],
   },
-}))
+})

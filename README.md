@@ -11,7 +11,7 @@ npm run lint
 npm run build
 ```
 
-개발 서버 주소는 터미널에 표시됩니다. 빌드 결과는 `dist/`에 생성됩니다. `npm run preview`로 배포 빌드를 확인할 때는 `/myPage-wijaeseong/` 경로를 사용합니다. HashRouter를 사용해 `/#/projects/folio` 같은 주소로 프로젝트 상세에 직접 접근할 수 있습니다.
+개발 서버 주소는 터미널에 표시됩니다. 빌드 결과는 `dist/`에 생성됩니다. `npm run preview`로 배포 빌드를 확인할 때는 루트(`/`) 경로를 사용합니다. HashRouter를 사용해 `/#/projects/folio` 같은 주소로 프로젝트 상세에 직접 접근할 수 있습니다.
 
 ## 내용 수정
 
@@ -30,8 +30,8 @@ npm run build
 
 ## 배포
 
-공개 주소: https://jaeseong09.github.io/myPage-wijaeseong/
+공개 주소: https://wjs.a-end.kr/
 
-`main` 브랜치에 push하면 GitHub Actions가 빌드 결과를 `gh-pages` 브랜치에 게시합니다. GitHub Pages의 배포 소스는 `gh-pages`의 루트(`/`)이며, 사용자 지정 도메인 없이 기본 주소를 사용합니다. `public/CNAME` 파일은 추가하지 않습니다.
+`main` 브랜치에 push하면 GitHub Actions가 빌드 결과를 `gh-pages` 브랜치에 게시합니다. GitHub Pages의 배포 소스는 `gh-pages`의 루트(`/`)이며, `public/CNAME`의 `wjs.a-end.kr`을 사용자 지정 도메인으로 사용합니다. 기존 기본 주소 `https://jaeseong09.github.io/myPage-wijaeseong/`는 사용자 지정 도메인으로 이동합니다.
 
-배포 빌드와 미리보기의 기준 경로는 `/myPage-wijaeseong/`이고 로컬 개발 서버는 `/`를 유지합니다. 프로젝트 이미지 경로는 `import.meta.env.BASE_URL`을 기준으로 구성합니다.
+배포 빌드, 미리보기, 로컬 개발 서버의 기준 경로는 `/`입니다. 프로젝트 이미지 경로는 `import.meta.env.BASE_URL`을 기준으로 구성합니다. Cloudflare의 `wjs` CNAME은 `jaeseong09.github.io`를 가리키며 DNS 전용으로 설정합니다.

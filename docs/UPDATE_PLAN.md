@@ -67,3 +67,10 @@
 - 배포·미리보기의 Vite base를 `/myPage-wijaeseong/`로 지정하고 `public/CNAME`을 제거합니다. 개발 서버의 `/` 경로는 유지합니다.
 - GitHub Pages의 사용자 지정 도메인을 해제하고 기존 `main` → `gh-pages` 배포 흐름을 사용합니다.
 - 빌드·lint, 배포 파일 경로와 CNAME 제거, 실제 HTTPS 접속, 프로젝트 상세·이미지·목록 복귀를 확인합니다.
+
+## 사용자 지정 도메인 복구 — 2026-09-30
+
+- 사용자가 Cloudflare의 `a-end.kr` 관리 계정에 로그인하고 `wjs.a-end.kr` 재연결을 요청했습니다. 이 단계에는 해당 호스트의 DNS 기록 추가, Pages 도메인 설정, 원격 push가 포함됩니다.
+- `wjs` CNAME을 `jaeseong09.github.io`로 지정하고 DNS 전용으로 사용합니다.
+- Vite base와 404 복귀 경로를 `/`로 변경하고 `public/CNAME`을 복구합니다. 기존 Pages 배포 흐름을 유지합니다.
+- 빌드·lint, 배포 파일 경로, DNS 응답, HTTPS 인증서, 프로젝트 상세·이미지, 기존 기본 주소의 이동을 확인합니다.
