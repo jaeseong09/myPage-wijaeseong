@@ -28,13 +28,13 @@ function SkillItem({
       >
         <div className="flex items-center gap-5 flex-1 min-w-0">
           <span
-            className="font-mono text-[10px] tracking-[0.28em] shrink-0"
+            className="font-mono text-[12px] tracking-[0.28em] shrink-0"
             style={{ color: 'var(--text-subtle)' }}
           >
             {String(index + 1).padStart(2, '0')}
           </span>
           <span
-            className="text-[15px] font-[400] transition-colors duration-300 truncate"
+            className="min-w-0 text-[18px] leading-[1.5] font-[400] transition-colors duration-300 break-words"
             style={{
               color: isSelected ? 'var(--text-primary)' : 'var(--text-secondary)',
             }}
@@ -68,11 +68,11 @@ function SkillItem({
               {skill.detail.map((item, i) => (
                 <li
                   key={i}
-                  className="text-[13px] leading-[1.75] flex gap-2"
+                  className="text-[16px] md:text-[17px] leading-[1.75] flex gap-2"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   <span className="shrink-0 mt-[0.45em]" style={{ color: 'var(--text-subtle)' }}>—</span>
-                  <span>{item}</span>
+                  <span className="min-w-0 break-words">{item}</span>
                 </li>
               ))}
             </ul>
@@ -123,38 +123,39 @@ export function Skills() {
           </motion.h2>
         </div>
 
-        {/* 비대칭 3컬럼 — 프론트엔드 컬럼을 크게 */}
+        {/* 화면 너비에 맞춰 1·2·3컬럼으로 배치 */}
         <div
-          className="grid gap-x-12 md:gap-x-16 gap-y-16 grid-cols-1 md:grid-cols-3"
+          className="grid gap-x-8 lg:gap-x-12 gap-y-16 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
         >
           {skillCategories.map((cat, catIdx) => {
             return (
               <motion.div
                 key={cat.id}
+                className="min-w-0"
                 initial={reducedMotion ? false : { opacity: 0, y: 16 }}
                 animate={isVisible ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55, delay: 0.1 + catIdx * 0.08 }}
               >
-                <div className="flex items-baseline justify-between pb-4">
-                  <div className="flex items-baseline gap-3">
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2 pb-4">
+                  <div className="flex items-baseline gap-3 min-w-0">
                     <span
-                      className="font-mono text-[10px] tracking-[0.3em]"
+                      className="font-mono text-[12px] tracking-[0.3em] shrink-0"
                       style={{ color: 'var(--text-subtle)' }}
                     >
                       {String(catIdx + 1).padStart(2, '0')}
                     </span>
                     <p
-                      className="font-[400] tracking-[-0.01em]"
+                      className="min-w-0 font-[400] tracking-[-0.01em]"
                       style={{
                         color: 'var(--text-primary)',
-                        fontSize: '16px',
+                        fontSize: '20px',
                       }}
                     >
                       {cat.label}
                     </p>
                   </div>
                   <span
-                    className="font-mono text-[10px] tracking-widest"
+                    className="font-mono text-[12px] tracking-widest shrink-0"
                     style={{ color: 'var(--text-subtle)' }}
                   >
                     {String(cat.skills.length).padStart(2, '0')} items
@@ -185,7 +186,7 @@ export function Skills() {
           initial={reducedMotion ? false : { opacity: 0 }}
           animate={isVisible ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="font-mono text-[11px] leading-[1.7] mt-16 measure-prose"
+          className="font-mono text-[14px] leading-[1.7] mt-16 measure-prose"
           style={{ color: 'var(--text-muted)' }}
         >
           ── 클릭하면 각 도구에 대한 작업 방식을 펼쳐볼 수 있습니다.

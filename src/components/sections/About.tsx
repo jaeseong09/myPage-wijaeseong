@@ -45,7 +45,7 @@ export function About() {
           <motion.div {...anim(0.15)} className="flex flex-col gap-3">
             <p className="section-label">Bio</p>
             <p
-              className="font-mono text-[11px] leading-[1.6]"
+              className="font-mono text-[14px] leading-[1.6]"
               style={{ color: 'var(--text-muted)' }}
             >
               {profile.tagline}
@@ -56,7 +56,7 @@ export function About() {
 
           <motion.p
             {...anim(0.2)}
-            className="text-[16px] md:text-[18px] leading-[1.85] whitespace-pre-line measure-prose"
+            className="text-[18px] md:text-[20px] leading-[1.85] whitespace-pre-line measure-prose"
             style={{ color: 'var(--text-secondary)' }}
           >
             {profile.about}
@@ -84,7 +84,7 @@ export function About() {
               }}
             >
               <span
-                className="font-mono text-[10px] tracking-[0.3em]"
+                className="font-mono text-[12px] tracking-[0.3em]"
                 style={{ color: 'var(--text-subtle)' }}
               >
                 {String(idx + 1).padStart(2, '0')} / {String(STATS.length).padStart(2, '0')}
@@ -104,7 +104,7 @@ export function About() {
                   {stat.value}
                 </div>
                 <div
-                  className="text-[12px] leading-[1.4]"
+                  className="text-[15px] leading-[1.6]"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   {stat.label}
