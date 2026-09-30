@@ -41,6 +41,8 @@ export interface Project {
   thumbnailSmall?: string;
   thumbnailWidth?: number;
   thumbnailHeight?: number;
+  thumbnailAlt?: string;
+  thumbnailCaption?: string;
   featured?: boolean;
   stateLabel?: string;
 }
@@ -134,7 +136,12 @@ export const projects: Project[] = [
       "github": "https://github.com/core-AIforAll/demo",
       "blog": "https://blog.naver.com/cadoim/224387934310"
     },
-    "thumbnail": "",
+    "thumbnail": `${import.meta.env.BASE_URL}core-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}core-small.webp`,
+    "thumbnailWidth": 1086,
+    "thumbnailHeight": 1448,
+    "thumbnailAlt": "CORE 소개 포스터 — 모두를 위한 AI, AI 기반 GPU 인프라 플랫폼",
+    "thumbnailCaption": "CORE 프로젝트 소개 포스터",
     "featured": true,
     "stateLabel": "프로토타입 · 개발 중"
   },
@@ -194,9 +201,9 @@ export const projects: Project[] = [
     "id": "chi-go",
     "title": "chi-go",
     "subtitle": "파크골프 음성 기록 앱 캡스톤",
-    "description": "협력 기관과 구장 선택·로그인·QR 초대 요구를 논의하고 화면·데이터 구조·일정의 변경 계획을 기록했습니다.",
+    "description": "기획 문서와 디자인 자료를 바탕으로 메인 화면까지 구현한 캡스톤입니다. 협력 기관과 요구사항을 조율하며 후속 기능을 개발하고 있습니다.",
     "year": 2026,
-    "role": "Expo 초기 설정 · 요구사항 조율 참여",
+    "role": "프론트엔드 · 요구사항 조율 참여",
     "team": "팀 캡스톤",
     "duration": "2026.08 ~ 현재",
     "status": "wip",

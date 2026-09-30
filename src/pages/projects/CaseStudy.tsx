@@ -5,15 +5,16 @@ import { caseStudies } from '../../data/caseStudies';
 import { Badge } from '../../components/ui/Badge';
 import { NotFound } from '../NotFound';
 
-export function CaseStudy({ projectId }: { projectId?: string }) {
+export function CaseStudy() {
   const { id } = useParams();
-  const project = projects.find((entry) => entry.id === (projectId ?? id));
+  const project = projects.find((entry) => entry.id === id);
   const content = project ? caseStudies[project.id] : undefined;
   if (!project || !content) return <NotFound />;
 
   const links = [
     { label: 'GitHub', url: project.links.github },
     { label: '시연 영상', url: project.links.video },
+    { label: '서비스', url: project.links.live },
     { label: '회고', url: project.links.blog },
     { label: '노션', url: project.links.notion },
   ].filter((link): link is { label: string; url: string } => Boolean(link.url));
@@ -33,14 +34,46 @@ export function CaseStudy({ projectId }: { projectId?: string }) {
           <div><dt>개발 기간</dt><dd>{project.duration}</dd></div>
         </dl>
       </div>
-      <div className="flex flex-wrap gap-2 mb-6">{project.tech.map((tech) => <Badge key={tech}>{tech}</Badge>)}</div>
+      <div className="case-tech flex flex-wrap gap-2 mb-6">{project.tech.map((tech) => <Badge key={tech}>{tech}</Badge>)}</div>
       {project.achievements.length > 0 && <ul className="case-results mb-6">{project.achievements.map((item) => <li key={item}>{item}</li>)}</ul>}
       <div className="case-links">{links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} /></a>)}</div>
-      {project.thumbnail && <img src={project.thumbnail} alt={`${project.title} 실제 프로젝트 화면`} width={project.thumbnailWidth} height={project.thumbnailHeight} decoding="async" className="case-image" />}
+      {project.thumbnail && (
+        <figure className="case-media">
+          <div className="case-image-frame">
+            <img src={project.thumbnail} alt={project.thumbnailAlt ?? `${project.title} 프로젝트 화면`} width={project.thumbnailWidth} height={project.thumbnailHeight} decoding="async" className="case-image" />
+          </div>
+          {project.thumbnailCaption && <figcaption>{project.thumbnailCaption}</figcaption>}
+        </figure>
+      )}
       <section className="case-section"><p className="section-label">01 / Overview</p><div><h2>프로젝트 소개</h2><p>{content.intro}</p></div></section>
-      {content.contributions.length > 0 && <section className="case-section"><p className="section-label">02 / Contribution</p><div><h2>직접 맡은 일</h2><ul className="case-list">{content.contributions.map((item) => <li key={item}>{item}</li>)}</ul></div></section>}
+      {(content.contributions.length > 0 || Boolean(content.contributionDetails?.length)) && (
+        <section className="case-section">
+          <p className="section-label">02 / Contribution</p>
+          <div>
+            <h2>직접 맡은 일</h2>
+            {content.contributions.length > 0 && <ul className="case-list">{content.contributions.map((item) => <li key={item}>{item}</li>)}</ul>}
+            {content.contributionDetails?.map((detail) => (
+              <article className="case-contribution" key={detail.title}>
+                <h3>{detail.title}</h3>
+                <p>{detail.context}</p>
+                <ul className="case-list">{detail.items.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
       {content.problems.length > 0 && <section className="case-section"><p className="section-label">03 / Problem solving</p><div><h2>문제와 해결 과정</h2>{content.problems.map((problem) => <article className="case-problem" key={problem.title}><h3>{problem.title}</h3><dl><div><dt>상황</dt><dd>{problem.problem}</dd></div><div><dt>대응</dt><dd>{problem.solution}</dd></div><div><dt>결과</dt><dd>{problem.result}</dd></div></dl></article>)}</div></section>}
-      {content.results.length > 0 && <section className="case-section"><p className="section-label">04 / Outcome</p><div><h2>결과와 배운 점</h2><ul className="case-list">{content.results.map((item) => <li key={item}>{item}</li>)}</ul>{content.next && <div className="case-next"><h3>이어 가는 작업</h3>{content.next.map((item) => <p key={item}>{item}</p>)}</div>}</div></section>}
+      {(content.results.length > 0 || Boolean(content.lessons?.length) || Boolean(content.next?.length)) && (
+        <section className="case-section">
+          <p className="section-label">04 / Outcome</p>
+          <div>
+            <h2>결과와 배운 점</h2>
+            {content.results.length > 0 && <ul className="case-list">{content.results.map((item) => <li key={item}>{item}</li>)}</ul>}
+            {content.lessons && <div className="case-lessons">{content.lessons.map((lesson) => <article key={lesson.title}><h3>{lesson.title}</h3><p>{lesson.body}</p></article>)}</div>}
+            {content.next && <div className="case-next"><h3>이어 가는 작업</h3>{content.next.map((item) => <p key={item}>{item}</p>)}</div>}
+          </div>
+        </section>
+      )}
       <section className="case-section"><p className="section-label">05 / References</p><div><h2>코드와 기록</h2><div className="case-links flex-col items-start">{content.evidence.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} /></a>)}</div></div></section>
       <Link to={{ pathname: '/', hash: '#projects' }} className="case-back"><ArrowLeft size={16} /> 프로젝트 목록으로 돌아가기</Link>
     </main>

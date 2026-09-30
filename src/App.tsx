@@ -6,10 +6,6 @@ import { Footer } from './components/layout/Footer';
 import { ScrollProgress } from './components/layout/ScrollProgress';
 import { CustomCursor } from './components/layout/CustomCursor';
 import { Home } from './pages/Home';
-import { Folio } from './pages/projects/Folio';
-import { DecoratingTheHouse } from './pages/projects/DecoratingTheHouse';
-import { GbswWeb } from './pages/projects/GbswWeb';
-import { CampLog } from './pages/projects/CampLog';
 import { CaseStudy } from './pages/projects/CaseStudy';
 import { NotFound } from './pages/NotFound';
 
@@ -23,10 +19,6 @@ export default function App() {
       <AnimatePresence mode="wait">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/projects/folio" element={<Folio />} />
-          <Route path="/projects/decorating-the-house" element={<DecoratingTheHouse />} />
-          <Route path="/projects/gbsw-web" element={<GbswWeb />} />
-          <Route path="/projects/camplog" element={<CampLog />} />
           <Route path="/projects/:id" element={<CaseStudy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

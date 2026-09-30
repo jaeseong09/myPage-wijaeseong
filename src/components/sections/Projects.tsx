@@ -25,7 +25,7 @@ export function Projects() {
                   {project.achievements.length > 0 && <p className="project-outcome">{project.achievements.join(' · ')}</p>}
                   <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-[14px]" style={{ color: 'var(--text-muted)' }}>{project.tech.map((tech) => <span key={tech}>{tech}</span>)}</div>
                 </div>
-                {project.thumbnail ? <img src={project.thumbnailSmall ?? project.thumbnail} alt={`${project.title} 프로젝트 화면`} width={480} height={312} loading="lazy" decoding="async" className="project-preview" /> : <span className="project-period">{project.duration}</span>}
+                {project.thumbnail ? <img src={project.thumbnailSmall ?? project.thumbnail} alt={project.thumbnailAlt ?? `${project.title} 프로젝트 화면`} width={project.thumbnailWidth} height={project.thumbnailHeight} loading="lazy" decoding="async" className="project-preview" /> : <span className="project-period">{project.duration}</span>}
               </Link>
             </motion.article>
           ))}

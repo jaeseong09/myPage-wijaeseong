@@ -1,13 +1,36 @@
+import { folioDetail } from './projects';
+import { gbswWebContent, homeshopContent } from './legacyCaseStudies';
+
 export interface CaseStudyContent {
   intro: string;
   contributions: string[];
+  contributionDetails?: { title: string; context: string; items: string[] }[];
   problems: { title: string; problem: string; solution: string; result: string }[];
   results: string[];
+  lessons?: { title: string; body: string }[];
   next?: string[];
   evidence: { label: string; url: string }[];
 }
 
 export const caseStudies: Record<string, CaseStudyContent> = {
+  folio: {
+    intro: folioDetail.overview,
+    contributions: [],
+    contributionDetails: folioDetail.roles.map((role) => ({ title: role.title, context: role.problem, items: role.solution })),
+    problems: folioDetail.problems.map((problem) => ({ title: problem.title, problem: problem.issue, solution: problem.solution, result: problem.result })),
+    results: [
+      '레벨업 프로그램에서 4위를 기록한 Folio를 AI EXPO KOREA 2026에 출품했습니다. 부스에서 서비스를 설명하며 분석 기준과 실제 이용 가능성에 대한 질문을 받았습니다. 개발자가 아닌 관람객에게는 서비스를 설명하기 어려웠고, 이력서와 자기소개서까지 분석 대상을 넓혀 달라는 의견도 들었습니다.',
+      '이 경험을 통해 학교 안에서 구현한 기능을 실제 사용자가 이해하고 사용할 수 있게 만드는 과정이 더 필요하다는 것을 배웠습니다. 분석 기준을 설명하는 방식, 읽기 편한 결과 화면, 이용 대상의 확대를 후속 개선 과제로 정리했습니다.',
+    ],
+    lessons: folioDetail.lessons,
+    evidence: [
+      { label: 'Folio 프로젝트 코드', url: folioDetail.links.github! },
+      { label: '서비스 시연 영상', url: folioDetail.links.video! },
+      { label: 'AI EXPO 출품 회고', url: folioDetail.links.blog! },
+    ],
+  },
+  'gbsw-web': gbswWebContent,
+  'decorating-the-house': homeshopContent,
   'phishing-defense': {
     intro: '피싱 상황을 대화로 경험하며 대응을 연습할 수 있도록 팀원들과 개발한 서비스입니다. 경북 SWgo 해커톤에서 웹·서버 연결과 모바일 음성 문제 수정에 참여했습니다.',
     contributions: ['웹 화면과 실제 서버 API를 연결하고 전송 실패 시 작성한 입력을 복구했습니다.', '모바일 마이크·네트워크 권한과 TTS·오디오 경로를 수정하며 통화 흐름을 점검했습니다.', '팀원들이 각자의 아이디어를 적고 비교하도록 먼저 제안하고, 제한된 시간에 맞춰 개발 범위를 함께 조정했습니다.'],
@@ -61,10 +84,10 @@ export const caseStudies: Record<string, CaseStudyContent> = {
     evidence: [{ label: '정책 상세 화면', url: 'https://github.com/Run-a-B/run-a-b/blob/main/apps/run-a-b-fe/src/pages/PolicyDetail.tsx' }, { label: '리포트 화면', url: 'https://github.com/Run-a-B/run-a-b/blob/main/apps/run-a-b-fe/src/pages/ReportDetail.tsx' }],
   },
   'chi-go': {
-    intro: '파크골프 기록을 음성으로 남기는 앱을 주제로 진행하는 캡스톤입니다. 초기 개발 환경을 설정하고 협력 기관의 요구를 팀의 설계와 일정에 연결하고 있습니다.',
-    contributions: ['React Native·Expo·TypeScript 초기 환경 설정에 참여했습니다.', '협력 기관과 구장 선택 방식, 로그인, QR 초대 요구를 논의했습니다.', '화면·DB·작업 일정에 반영할 변경 사항을 주간일지로 기록했습니다.'],
+    intro: '파크골프 기록을 음성으로 남기는 앱을 주제로 진행하는 캡스톤입니다. 기획 문서와 디자인 자료를 준비해 개발을 진행하고 있으며, 현재 메인 화면까지 구현한 단계입니다. 협력 기관의 요구를 팀의 설계와 일정에 연결하고 있습니다.',
+    contributions: ['React Native·Expo·TypeScript 초기 환경 설정에 참여하고 메인 화면을 구현했습니다.', '협력 기관과 구장 선택 방식, 로그인, QR 초대 요구를 논의했습니다.', '화면·DB·작업 일정에 반영할 변경 사항을 주간일지로 기록했습니다.'],
     problems: [{ title: '팀의 예상과 실제 요구의 차이', problem: '팀이 생각한 구장 선택 방식과 협력 기관이 기대한 사용 흐름이 달랐습니다.', solution: '회의에서 요구사항을 확인하고 화면·데이터 구조·작업 일정의 변경 계획을 정리했습니다.', result: '기능을 구현하기 전에 실제 사용 맥락을 함께 확인하는 경험을 쌓았습니다.' }],
-    results: ['캡스톤을 진행하며 개발 환경 설정과 요구사항 조율 과정을 기록하고 있습니다.'],
+    results: ['메인 화면을 구현했으며, 기획 문서·디자인 자료와 주간일지를 통해 요구사항 조율 과정을 정리하고 있습니다.'],
     next: ['합의한 사용 흐름과 음성 기록 기능을 구체화하는 단계입니다.'],
     evidence: [{ label: '초기 환경 설정 일지', url: 'https://github.com/chi-go-GBSW/journal/blob/main/jaeseong09/week2/README.md' }, { label: '요구사항 조율 일지', url: 'https://github.com/chi-go-GBSW/journal/blob/main/jaeseong09/week4/README.md' }],
   },
