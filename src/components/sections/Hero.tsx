@@ -217,7 +217,7 @@ export function Hero() {
         >
           <div className="flex items-center gap-3">
             <span
-              className="inline-block w-1.5 h-1.5 rounded-full animate-pulse"
+              className="inline-block w-1.5 h-1.5 rounded-full"
               style={{ background: 'var(--point-blue)' }}
               aria-hidden="true"
             />
@@ -227,7 +227,7 @@ export function Hero() {
             <span>SCROLL</span>
             <motion.div
               animate={reducedMotion ? {} : { y: [0, 4, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+              transition={{ duration: 1.8, repeat: 2, ease: 'easeInOut' }}
             >
               <ArrowDown size={12} style={{ color: 'var(--text-subtle)' }} />
             </motion.div>

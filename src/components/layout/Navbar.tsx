@@ -21,9 +21,20 @@ export function Navbar() {
   const isHome = location.pathname === '/' || location.pathname === '';
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    let previous = false;
+    const onScroll = () => {
+      const next = window.scrollY > 40;
+      if (next !== previous) {
+        previous = next;
+        setScrolled(next);
+      }
+    };
+    const frame = requestAnimationFrame(onScroll);
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
 
   const handleNavClick = (href: string) => {
@@ -35,10 +46,9 @@ export function Navbar() {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-40 transition-all duration-300"
+      className="fixed top-0 left-0 right-0 z-40 transition-colors duration-200"
       style={{
-        background: scrolled ? 'rgba(10, 10, 11, 0.78)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
+        background: scrolled ? 'rgba(10, 10, 11, 0.96)' : 'transparent',
         borderBottom: scrolled
           ? '1px solid var(--border-subtle)'
           : '1px solid transparent',

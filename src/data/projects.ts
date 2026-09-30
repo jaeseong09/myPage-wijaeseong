@@ -38,6 +38,9 @@ export interface Project {
   achievements: string[];
   links: ProjectLink;
   thumbnail: string;
+  thumbnailSmall?: string;
+  thumbnailWidth?: number;
+  thumbnailHeight?: number;
   featured?: boolean;
   stateLabel?: string;
 }
@@ -76,7 +79,10 @@ export const projects: Project[] = [
       "video": "https://www.youtube.com/watch?v=3BeM9U-I2O4",
       "blog": "https://blog.naver.com/cadoim/224286929147"
     },
-    "thumbnail": `${import.meta.env.BASE_URL}folio-thumbnail.png`,
+    "thumbnail": `${import.meta.env.BASE_URL}folio-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}folio-small.webp`,
+    "thumbnailWidth": 1600,
+    "thumbnailHeight": 1039,
     "featured": true,
     "stateLabel": "개발 · 전시"
   },
@@ -155,7 +161,10 @@ export const projects: Project[] = [
       "github": "https://github.com/jaeseong09/CampLog",
       "video": "https://www.youtube.com/watch?v=xBRwRgRgOuU"
     },
-    "thumbnail": `${import.meta.env.BASE_URL}camplog-thumbnail.png`,
+    "thumbnail": `${import.meta.env.BASE_URL}camplog-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}camplog-small.webp`,
+    "thumbnailWidth": 1600,
+    "thumbnailHeight": 1039,
     "featured": true,
     "stateLabel": "개인 프로젝트 · 시연 가능"
   },
@@ -270,7 +279,10 @@ export const projects: Project[] = [
     "links": {
       "github": "https://github.com/gbsw-wed/gbsw-wed"
     },
-    "thumbnail": `${import.meta.env.BASE_URL}gbsw-web-thumbnail.png`,
+    "thumbnail": `${import.meta.env.BASE_URL}gbsw-web-detail.webp`,
+    "thumbnailSmall": `${import.meta.env.BASE_URL}gbsw-web-small.webp`,
+    "thumbnailWidth": 1600,
+    "thumbnailHeight": 1039,
     "featured": false,
     "stateLabel": "팀 프로젝트"
   },

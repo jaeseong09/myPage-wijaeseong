@@ -231,6 +231,9 @@ export function GbswWeb() {
             <img
               src={project.thumbnail}
               alt="경소마고실록 썸네일"
+              width={project.thumbnailWidth}
+              height={project.thumbnailHeight}
+              decoding="async"
               className="w-full h-auto block"
             />
           </div>

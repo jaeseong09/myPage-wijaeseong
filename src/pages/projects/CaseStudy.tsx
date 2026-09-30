@@ -36,7 +36,7 @@ export function CaseStudy({ projectId }: { projectId?: string }) {
       <div className="flex flex-wrap gap-2 mb-6">{project.tech.map((tech) => <Badge key={tech}>{tech}</Badge>)}</div>
       {project.achievements.length > 0 && <ul className="case-results mb-6">{project.achievements.map((item) => <li key={item}>{item}</li>)}</ul>}
       <div className="case-links">{links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={14} /></a>)}</div>
-      {project.thumbnail && <img src={project.thumbnail} alt={`${project.title} 실제 프로젝트 화면`} className="case-image" />}
+      {project.thumbnail && <img src={project.thumbnail} alt={`${project.title} 실제 프로젝트 화면`} width={project.thumbnailWidth} height={project.thumbnailHeight} decoding="async" className="case-image" />}
       <section className="case-section"><p className="section-label">01 / Overview</p><div><h2>프로젝트 소개</h2><p>{content.intro}</p></div></section>
       {content.contributions.length > 0 && <section className="case-section"><p className="section-label">02 / Contribution</p><div><h2>직접 맡은 일</h2><ul className="case-list">{content.contributions.map((item) => <li key={item}>{item}</li>)}</ul></div></section>}
       {content.problems.length > 0 && <section className="case-section"><p className="section-label">03 / Problem solving</p><div><h2>문제와 해결 과정</h2>{content.problems.map((problem) => <article className="case-problem" key={problem.title}><h3>{problem.title}</h3><dl><div><dt>상황</dt><dd>{problem.problem}</dd></div><div><dt>대응</dt><dd>{problem.solution}</dd></div><div><dt>결과</dt><dd>{problem.result}</dd></div></dl></article>)}</div></section>}

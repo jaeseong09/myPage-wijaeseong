@@ -168,7 +168,10 @@ export function Folio() {
           <img
             src={folioDetail.thumbnail}
             alt="Folio 프로젝트 썸네일"
-            className="w-full object-cover"
+            width={folioDetail.thumbnailWidth}
+            height={folioDetail.thumbnailHeight}
+            decoding="async"
+            className="w-full h-auto object-cover"
           />
         </div>
 
