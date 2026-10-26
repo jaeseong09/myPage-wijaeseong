@@ -7,9 +7,9 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 const NAV_ITEMS = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Activities', href: '#experiences' },
   { label: 'Achievements', href: '#achievements' },
-  { label: 'Skills', href: '#skills' },
   { label: 'Contact', href: '#contact' },
 ];
 

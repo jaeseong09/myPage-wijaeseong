@@ -1,4 +1,5 @@
-import type { CSSProperties } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import '../../styles/side-wireframes.css';
 
 // Uneven crossings make the chains feel suspended around the page.
@@ -16,9 +17,36 @@ const strands = [
 ];
 
 export function SideWireframes() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || reducedMotion) return;
+
+    // Only animate visible strands; CSS handles the motion without frame updates.
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        (entry.target as HTMLElement).dataset.inView = String(entry.isIntersecting);
+      }
+    });
+    container.querySelectorAll('.side-chain').forEach((chain) => observer.observe(chain));
+
+    const updateVisibility = () => {
+      container.dataset.paused = String(document.hidden);
+    };
+    updateVisibility();
+    document.addEventListener('visibilitychange', updateVisibility);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', updateVisibility);
+    };
+  }, [reducedMotion]);
+
   return (
-    <div className="side-wireframes" aria-hidden="true">
-      {strands.map(({ top, angle, scale, distant }) => (
+    <div ref={containerRef} className="side-wireframes" aria-hidden="true">
+      {strands.map(({ top, angle, scale, distant }, index) => (
         <div
           key={top}
           className={`side-chain${distant ? ' side-chain--distant' : ''}`}
@@ -26,15 +54,13 @@ export function SideWireframes() {
             top,
             '--chain-angle': `${angle}deg`,
             '--chain-scale': scale,
+            '--chain-duration': `${12 + (index % 3) * 2}s`,
+            '--chain-delay': `${-1.2 - index * 1.7}s`,
           } as CSSProperties}
         >
-          <img
-            src={`${import.meta.env.BASE_URL}wire-chain.svg`}
-            alt=""
-            width={1600}
-            height={200}
-            decoding="async"
-            draggable={false}
+          <div
+            className="side-chain__track"
+            style={{ backgroundImage: `url("${import.meta.env.BASE_URL}wire-chain-tile.svg")` }}
           />
         </div>
       ))}

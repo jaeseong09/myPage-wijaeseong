@@ -8,9 +8,13 @@
 }
 
 .side-chain {
+  --chain-width: max(1480px, 145vw);
+  /* One seamless pair of links, matching the SVG's 2872 / 13 viewBox width. */
+  --chain-step: calc(var(--chain-width) * 2872 / 20800);
   position: absolute;
   left: 50%;
-  width: max(1480px, 145vw);
+  width: var(--chain-width);
+  height: calc(var(--chain-width) / 8);
   opacity: 0.6;
   transform: translate(-50%, -50%) rotate(var(--chain-angle)) scale(var(--chain-scale));
   transform-origin: center;
@@ -24,15 +28,39 @@
   opacity: 0.34;
 }
 
-.side-chain img {
-  display: block;
-  width: 100%;
-  height: auto;
+.side-chain__track {
+  width: calc(100% + var(--chain-step));
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: var(--chain-step) 100%;
+  animation: chain-travel var(--chain-duration) linear var(--chain-delay) infinite;
+  animation-play-state: paused;
+}
+
+.side-chain:nth-child(even) .side-chain__track {
+  animation-direction: reverse;
+}
+
+.side-chain[data-in-view='true'] .side-chain__track {
+  animation-play-state: running;
+}
+
+.side-wireframes[data-paused='true'] .side-chain__track {
+  animation-play-state: paused;
+}
+
+@keyframes chain-travel {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-1 * var(--chain-step)), 0, 0);
+  }
 }
 
 @media (max-width: 767px) {
   .side-chain {
-    width: 1250px;
+    --chain-width: 1250px;
     opacity: 0.3;
   }
 
@@ -42,5 +70,19 @@
 
   .side-chain:first-child {
     opacity: 0.18;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .side-chain__track {
+    animation: none;
+    transform: none;
+  }
+}
+
+@media print {
+  .side-chain__track {
+    animation: none;
+    transform: none;
   }
 }

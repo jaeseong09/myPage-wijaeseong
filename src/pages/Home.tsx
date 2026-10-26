@@ -12,9 +12,9 @@ export function Home() {
       <Hero />
       <About />
       <Projects />
+      <Skills />
       <Experiences />
       <Achievements />
-      <Skills />
       <Contact />
     </main>
   );
