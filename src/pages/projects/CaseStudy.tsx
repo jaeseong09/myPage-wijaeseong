@@ -12,6 +12,7 @@ export function CaseStudy() {
   if (!project || !content) return <NotFound />;
 
   const links = [
+    { label: '언론 보도', url: project.links.article },
     { label: 'GitHub', url: project.links.github },
     { label: '시연 영상', url: project.links.video },
     { label: '서비스', url: project.links.live },

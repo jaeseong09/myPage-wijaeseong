@@ -4,6 +4,7 @@ export interface ProjectLink {
   live?: string;
   blog?: string;
   notion?: string;
+  article?: string;
 }
 
 export interface FolioRole {
@@ -139,7 +140,8 @@ export const projects: Project[] = [
     ],
     "links": {
       "github": "https://github.com/core-AIforAll/demo",
-      "blog": "https://blog.naver.com/cadoim/224387934310"
+      "blog": "https://blog.naver.com/cadoim/224387934310",
+      "article": "https://zdnet.co.kr/view/?no=20261006170907"
     },
     "thumbnail": `${import.meta.env.BASE_URL}core-wide-detail.webp`,
     "thumbnailSmall": `${import.meta.env.BASE_URL}core-wide-small.webp`,
